@@ -29,7 +29,6 @@ static const I2CConfig i2cfg = {
 
 void tca9555_init(void)
 {
-    i2cStart(&I2CD, &i2cfg);
     palSetPadMode(I2C_PORT, I2C_SDA, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
     palSetPadMode(I2C_PORT, I2C_SCL, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
 }
@@ -43,22 +42,27 @@ bool tca9555_write(uint8_t reg, uint8_t data)
     tx_data[0] = reg;
     tx_data[1] = data;
     
+    i2cStart(&I2CD, &i2cfg);
     i2cAcquireBus(&I2CD);
     status = i2cMasterTransmitTimeout(&I2CD, TCA9555_SLAVE_ADDRESS, tx_data, 2, NULL, 0, timeout);
     i2cReleaseBus(&I2CD);
+    i2cStop(&I2CD);
 
     return (status == MSG_OK);
 }
 
 int32_t tca9555_read(uint8_t reg)
 {
+    //I2C_TypeDef *dp = i2cp->i2c;
     msg_t status = MSG_OK;
     systime_t timeout = MS2ST(5);
     uint8_t res[2];
     
+    i2cStart(&I2CD, &i2cfg);
     i2cAcquireBus(&I2CD);
     status = i2cMasterTransmitTimeout(&I2CD, TCA9555_SLAVE_ADDRESS, &reg, 1, res, 2, timeout);
     i2cReleaseBus(&I2CD);
+    i2cStop(&I2CD);
 
     if (status == MSG_OK)
         return res[0];
