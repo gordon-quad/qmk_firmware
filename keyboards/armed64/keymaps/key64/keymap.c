@@ -53,7 +53,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LCBR, KC_LBRC, KC_LPRN, KC_QUOT, KC_MINS,             \
     KC_LSFT, KC_EXLM, KC_HASH, KC_LT,   KC_EQL,  KC_PIPE, KC_NO,      \
              KC_PSCR, KC_PAUS, KC_INS,  KC_BTN3,                      \
-                                                 KC_DEL,  KC_NO,      \
+                                                 KC_DEL,  KC_FN6,     \
     /* right, spatial positions */                                    \
              KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_NO,      \
     KC_NO,   KC_CIRC, KC_PERC, KC_ASTR, KC_F11,  KC_F12,  KC_LALT,    \
@@ -85,7 +85,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LCBR, KC_LBRC, KC_LPRN, KC_QUOT, KC_MINS,             \
     KC_LSFT, KC_EXLM, KC_HASH, KC_LT,   KC_EQL,  KC_PIPE, KC_NO,      \
              KC_PSCR, KC_PAUS, KC_INS,  KC_BTN3,                      \
-                                                 KC_DEL,  KC_NO,      \
+                                                 KC_DEL,  KC_FN6,     \
     /* right, spatial positions */                                    \
              KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_NO,      \
     KC_NO,   KC_CIRC, KC_PERC, KC_ASTR, KC_NO,   KC_NO,   KC_LALT,    \
@@ -129,12 +129,13 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t fn_actions[] = {
-    [0] = ACTION_LAYER_MOMENTARY(BASE_PUNCT),
+    [0] = ACTION_LAYER_TAP_KEY(BASE_PUNCT, KC_APP),
     [1] = ACTION_MACRO(MACRO_CYR_PUNCT),
     [2] = ACTION_MACRO(MACRO_CAPS),
     [3] = ACTION_MACRO(MACRO_NUM),
     [4] = ACTION_MACRO(MACRO_CAPS_BASE),
     [5] = ACTION_LAYER_MOMENTARY(NUM_FN),
+    [6] = ACTION_MODS_ONESHOT(MOD_RALT),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

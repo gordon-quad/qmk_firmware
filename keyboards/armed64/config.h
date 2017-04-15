@@ -65,6 +65,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_PRINT
 
 #define FORCE_NKRO
+#define PREVENT_STUCK_MODIFIERS
 
 /* disable action features */
 //#define NO_ACTION_LAYER
