@@ -266,41 +266,41 @@ const uint8_t PROGMEM g_left_hand_table[256][MAX_LETTERS] =
     NO_ENTRY // [255]
 };
 
-// From Jackdaw (the 5 vowels version)
+// From Jackdaw (the 4 vowels version)
 const uint8_t PROGMEM g_thumbs_table[32][MAX_LETTERS] =
 {
     NO_ENTRY,                               // [0]
     _1(_E),                                 // [1]
     _1(_O),                                 // [2]
-    _2(_E, _O),                             // [3]
+    _2(_I, _E),                             // [3]
     _1(_A),                                 // [4]
     _2(_E, _A),                             // [5]
-    _2(_O, _A),                             // [6]
+    _2(_I, _O),                             // [6]
     _3(_E, _O, _A),                         // [7]
     _1(_U),                                 // [8]
-    _2(_E, _U),                             // [9]
+    _1(_I),                                 // [9]
     _2(_O, _U),                             // [10]
-    _3(_E, _O, _U),                         // [11]
+    _2(_O, _I),                             // [11]
     _2(_A, _U),                             // [12]
-    _3(_E, _A, _U),                         // [13]
+    _2(_E, _I),                             // [13]
     _3(_O, _A, _U),                         // [14]
-    _4(_E, _O, _A, _U),                     // [15]     Find something usefull here
-    _1(_I),                                 // [16]
-    _2(_E, _I),                             // [17]
-    _2(_O, _I),                             // [18]
-    _3(_E, _O, _I),                         // [19]
-    _2(_A, _I),                             // [20]
-    _3(_E, _A, _I),                         // [21]
-    _3(_O, _A, _I),                         // [22]
-    _4(_E, _O, _A, _I),                     // [23]     Find something usefull here
-    _2(_U, _I),                             // [24]
-    _3(_E, _U, _I),                         // [25]
-    _3(_O, _U, _I),                         // [26]
-    _4(_E, _O, _U, _I),                     // [27]     Find something usefull here
-    _3(_A, _U, _I),                         // [28]
-    _4(_E, _A, _U, _I),                     // [29]     Find something usefull here
-    _4(_O, _A, _U, _I),                     // [30]     Find something usefull here
-    _5(_E, _O, _A, _U, _I)                  // [31]     Find something usefull here
+    _3(_I, _O, _U),                         // [15]
+    NO_ENTRY,                               // [16]
+    NO_ENTRY,                               // [17]
+    NO_ENTRY,                               // [18]
+    NO_ENTRY,                               // [19]
+    NO_ENTRY,                               // [20]
+    NO_ENTRY,                               // [21]
+    NO_ENTRY,                               // [22]
+    NO_ENTRY,                               // [23]
+    NO_ENTRY,                               // [24]
+    NO_ENTRY,                               // [25]
+    NO_ENTRY,                               // [26]
+    NO_ENTRY,                               // [27]
+    NO_ENTRY,                               // [28]
+    NO_ENTRY,                               // [29]
+    NO_ENTRY,                               // [30]
+    NO_ENTRY,                               // [31]
 };
 
 // Double single vowels and invert bigrams
@@ -309,35 +309,35 @@ const uint8_t PROGMEM g_thumbs_bigrams_table[32][MAX_LETTERS] =
     NO_ENTRY,                               // [0]
     _2(_E, _E),                             // [1]
     _2(_O, _O),                             // [2]
-    _2(_O, _E),                             // [3]
+    _2(_E, _I),                             // [3]
     _2(_A, _A),                             // [4]
     _2(_A, _E),                             // [5]
-    _2(_A, _O),                             // [6]
+    _2(_O, _I),                             // [6]
     _3(_E, _A, _O),                         // [7]
     _2(_U, _U),                             // [8]
-    _2(_U, _E),                             // [9]
+    _2(_I, _I),                             // [9]
     _2(_U, _O),                             // [10]
-    _3(_E, _U, _O),                         // [11]
+    _2(_I, _O),                             // [11]
     _2(_U, _A),                             // [12]
     _3(_E, _U, _A),                         // [13]
     _3(_O, _U, _A),                         // [14]
-    _4(_E, _O, _U, _A),                     // [15]     Find something usefull here
-    _2(_I, _I),                             // [16]
-    _2(_I, _E),                             // [17]
-    _2(_I, _O),                             // [18]
-    _3(_E, _I, _O),                         // [19]
-    _2(_I, _A),                             // [20]
-    _3(_E, _I, _A),                         // [21]
-    _3(_O, _I, _A),                         // [22]
-    _4(_E, _O, _I, _A),                     // [23]     Find something usefull here
-    _2(_I, _U),                             // [24]
-    _3(_E, _I, _U),                         // [25]
-    _3(_I, _O, _U),                         // [26]
-    _4(_E, _O, _I, _U),                     // [27]     Find something usefull here
-    _3(_A, _I, _U),                         // [28]
-    _4(_E, _A, _I, _U),                     // [29]     Find something usefull here
-    _4(_O, _A, _I, _U),                     // [30]     Find something usefull here
-    _5(_E, _O, _A, _I, _U)                  // [31]     Find something usefull here
+    _3(_U, _O, _U),                         // [15]
+    NO_ENTRY,                               // [16]
+    NO_ENTRY,                               // [17]
+    NO_ENTRY,                               // [18]
+    NO_ENTRY,                               // [19]
+    NO_ENTRY,                               // [20]
+    NO_ENTRY,                               // [21]
+    NO_ENTRY,                               // [22]
+    NO_ENTRY,                               // [23]
+    NO_ENTRY,                               // [24]
+    NO_ENTRY,                               // [25]
+    NO_ENTRY,                               // [26]
+    NO_ENTRY,                               // [27]
+    NO_ENTRY,                               // [28]
+    NO_ENTRY,                               // [29]
+    NO_ENTRY,                               // [30]
+    NO_ENTRY,                               // [31]
 };
 
 const uint8_t PROGMEM g_right_hand_table[256][MAX_LETTERS] =

@@ -218,10 +218,26 @@ const uint32_t PROGMEM g_steno_keymap[2][MATRIX_ROWS][MATRIX_COLS] = {
 
 // BASE STENO MAP
 KEYMAP(
-                NL_B0, NL_B1,   NL_B2, NL_B3,          NR_B3, NR_B2, NR_B1, NR_B0,
-          C_UC, L_A,   L_C,     L_W,   L_N,   SC_MSPC, R_R,   R_L,   R_C,   R_T,   RP_E,
-          C_IC, L_S,   L_T,     L_H,   L_R,   SC_MSPC, R_N,   R_G,   R_H,   R_S,   RP_Y,
-                       SC_PLUS, T_E,   T_O,   SC_STAR, T_A,   T_U
+                NL_B0, NL_B1,   S_ENT,  SC_PLUS,          SC_PLUS, NL_B2, NL_B3, NR_N0,
+          C_UC, L_A,   L_C,     L_W,    L_N,     SC_MSPC, R_R,     R_L,   R_C,   R_T,   RP_E,
+          C_IC, L_S,   L_T,     L_H,    L_R,     SC_MSPC, R_N,     R_G,   R_H,   R_S,   RP_Y,
+                       SC_PLUS, T_E,    T_O,     SC_STAR, T_A,     T_U
+),
+
+// SHIFT STENO MAP (when C_IC or C_UC are pressed)
+KEYMAP(
+    0, 0, 0, 0,    0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0
+)
+
+// CYR STENO MAP
+KEYMAP(
+                NL_B0,    NL_B1,      S_ENT,     SC_PLUS,             SC_PLUS,    NL_B2,    NL_B3,    NR_N0,
+          C_UC, L_RU_O,   L_RU_P,     L_RU_T,    L_RU_V,     SC_MSPC, R_RU_K,     R_RU_T,   R_RU_P,   RP_RU_I,   RP_RU_A,
+          C_IC, L_RU_S,   L_RU_K,     L_RU_N,    L_RU_R,     SC_MSPC, R_RU_S,     R_RU_N,   R_RU_R,   RP_RU_E,   RP_RU_O,
+                          SC_PLUS,    T_RU_I,    T_RU_A,     SC_STAR, T_RU_E,     T_RU_O
 ),
 
 // SHIFT STENO MAP (when C_IC or C_UC are pressed)
@@ -283,6 +299,7 @@ void stroke(void)
     // Get *, + and case controls info
     const uint8_t special_controls_bits = g_family_bits[FAMILY_SPECIAL_CONTROLS];
     const uint8_t thumbs_bits = g_family_bits[FAMILY_THUMBS];
+    const bool has_right_consonant = g_family_bits[FAMILY_RIGHT_HAND] != 0;
     const bool has_star = special_controls_bits & (1 << (SC_STAR & 0xF));
     const bool has_plus = special_controls_bits & (1 << (SC_PLUS & 0xF));
     const bool has_meta_space = special_controls_bits & (1 << (SC_MSPC & 0xF));
@@ -335,34 +352,55 @@ void stroke(void)
             case KIND_LETTERS:
                 {
                     letters_table_t* letters_table = (letters_table_t*)any_table;
-                    for (int code_pos = 0; code_pos < MAX_LETTERS; ++code_pos)
+                    // Jackdaw rule: If E and Y pressed with vowel - produce YE not EY
+                    if ((family_id == FAMILY_RIGHT_PINKY) && (!has_right_consonant) && (family_bits == 0x3))
                     {
-                        const uint8_t byte = letters_table[family_bits][code_pos];
-                        if (byte)
+                        register_code(_Y);
+                        unregister_code(_Y);
+                        new_undo_command.inserted_chars_count++;
+                        if ((initial_case_1 && new_undo_command.inserted_chars_count == 1) || (initial_case_2 && new_undo_command.inserted_chars_count == 2))
                         {
-                            register_code(byte);
-                            unregister_code(byte);
-                            new_undo_command.inserted_chars_count++;
-
-                            // Jackdaw rule: If a 'Q' is detected on the left hand followed by a thumb vowel => add a 'U'
-                            if (byte == _Q && thumbs_bits)
-                            {
-                                register_code(_U);
-                                unregister_code(_U);
-                                new_undo_command.inserted_chars_count++;
-                            }
-
-                            // Jackdaw rule: Double the first letter for the right hand only if + is in the stroke
-                            if (has_plus && (family_id == FAMILY_RIGHT_HAND) && !code_pos)
+                            del_mods(MOD_LSFT);
+                        }
+                        register_code(_E);
+                        unregister_code(_E);
+                        new_undo_command.inserted_chars_count++;
+                        if ((initial_case_1 && new_undo_command.inserted_chars_count == 1) || (initial_case_2 && new_undo_command.inserted_chars_count == 2))
+                        {
+                            del_mods(MOD_LSFT);
+                        }
+                    }
+                    else
+                    {
+                        for (int code_pos = 0; code_pos < MAX_LETTERS; ++code_pos)
+                        {
+                            const uint8_t byte = letters_table[family_bits][code_pos];
+                            if (byte)
                             {
                                 register_code(byte);
                                 unregister_code(byte);
                                 new_undo_command.inserted_chars_count++;
-                            }
-
-                            if ((initial_case_1 && new_undo_command.inserted_chars_count == 1) || (initial_case_2 && new_undo_command.inserted_chars_count == 2))
-                            {
-                                del_mods(MOD_LSFT);
+                                
+                                // Jackdaw rule: If a 'Q' is detected on the left hand followed by a thumb vowel => add a 'U'
+                                if (byte == _Q && thumbs_bits)
+                                {
+                                    register_code(_U);
+                                    unregister_code(_U);
+                                    new_undo_command.inserted_chars_count++;
+                                }
+                                
+                                // Jackdaw rule: Double the first letter for the right hand only if + is in the stroke
+                                if (has_plus && (family_id == FAMILY_RIGHT_HAND) && !code_pos)
+                                {
+                                    register_code(byte);
+                                    unregister_code(byte);
+                                    new_undo_command.inserted_chars_count++;
+                                }
+                                
+                                if ((initial_case_1 && new_undo_command.inserted_chars_count == 1) || (initial_case_2 && new_undo_command.inserted_chars_count == 2))
+                                {
+                                    del_mods(MOD_LSFT);
+                                }
                             }
                         }
                     }
