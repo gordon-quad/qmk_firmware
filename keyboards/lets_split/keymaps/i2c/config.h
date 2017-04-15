@@ -16,9 +16,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define USE_I2C
 
-#define MASTER_LEFT
+//#define MASTER_LEFT
 // #define _MASTER_RIGHT
-// #define EE_HANDS
+#define EE_HANDS
 
 #ifdef SUBPROJECT_rev1
     #include "../../rev1/config.h"
@@ -26,6 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef SUBPROJECT_rev2
     #include "../../rev2/config.h"
 #endif
-#ifdef SUBPROJECT_rev2fliphalf
+#ifdef SUBPROJECT_rev3fliphalf
 	#include "../../rev2fliphalf/config.h"
+#endif
+#ifdef SUBPROJECT_yoba
+	#include "../../yoba/config.h"
 #endif

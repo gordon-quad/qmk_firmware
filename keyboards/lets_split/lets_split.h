@@ -10,6 +10,9 @@
 #ifdef SUBPROJECT_rev2fliphalf
 	#include "rev2fliphalf.h"
 #endif
+#ifdef SUBPROJECT_yoba
+    #include "yoba.h"
+#endif
 
 #include "quantum.h"
 
