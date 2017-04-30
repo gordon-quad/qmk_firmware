@@ -51,20 +51,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
- * |   `  |   `  |   ~  |   (  |   )  |      |  |   |   7  |   8  |   9  |  -   |      |
+ * |   `  |   `  |   ~  |   (  |   )  |      |  |   |   7  |   8  |   9  |  -   |  .   |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |  [   |   ]  |   {  |   }  |      |Bksp  |   4  |   5  |   6  |  +   |  \   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  -   |   _  |  =   |  +   |      |      |   1  |   2  |   3  |  *   |  /   |
+ * |      |  -   |   _  |  =   |  +   |      | 0    |   1  |   2  |   3  |  *   |  /   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |Del   |Enter |   0  |   .  | PgDn | PgUp |      |
+ * |      |      |      |      |      |Del   |Enter |      | Home | PgDn | PgUp | End  |
  * `-----------------------------------------------------------------------------------'
  */
 
 [RAISE] = KEYMAP( \
-  KC_GRV,  KC_GRV,  KC_TILD, KC_LPRN, KC_RPRN, _______, KC_PIPE, KC_7,    KC_8,    KC_9,    KC_MINS, KC_SLSH, \
-  _______, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______, KC_BSPC, KC_4,    KC_5,    KC_6,    KC_PLUS, KC_BSLS, \
-  _______, KC_MINS, KC_UNDS, KC_EQL,  KC_PLUS, _______, _______, KC_1,    KC_2,    KC_3,    KC_ASTR, _______, \
-  _______, _______, _______, _______, _______, KC_DEL,  KC_ENT,  KC_0,    KC_DOT,  KC_PGDN, KC_PGUP, _______ \
+  KC_GRV,  KC_GRV,  KC_TILD, KC_LPRN, KC_RPRN, _______, KC_PIPE, KC_7,    KC_8,    KC_9,    KC_MINS, KC_DOT, \
+  _______, KC_LBRC, KC_RBRC, KC_LCBR, KC_RCBR, _______, KC_BSPC, KC_4,    KC_5,    KC_6,    KC_PLUS, KC_SLSH, \
+  _______, KC_MINS, KC_UNDS, KC_EQL,  KC_PLUS, _______, KC_0,    KC_1,    KC_2,    KC_3,    KC_ASTR, KC_BSLS, \
+  _______, _______, _______, _______, _______, KC_DEL,  KC_ENT,  _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END \
 )
 };

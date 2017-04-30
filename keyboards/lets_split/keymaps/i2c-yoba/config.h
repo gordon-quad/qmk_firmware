@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define _MASTER_RIGHT
 #define EE_HANDS
 
+#define PREVENT_STUCK_MODIFIERS
+
 #ifdef SUBPROJECT_rev1
     #include "../../rev1/config.h"
 #endif
