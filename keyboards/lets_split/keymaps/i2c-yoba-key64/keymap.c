@@ -4,9 +4,11 @@
 #define QWERTY 0
 #define LOWER 1
 #define RAISE 2
+#define NUM 3
 
 #define TO_LWR MO(LOWER)
 #define TO_RSE MO(RAISE)
+#define TG_NUM TG(NUM)
 
 // Alias to make layering more clear
 #define _______ KC_TRNS
@@ -15,20 +17,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
  * ,-----------------------------------------------------------------------------------.
- * |Alt/Es|   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |RAl/Co|
+ * |Alt/Es|   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |Num   |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |Ct/Tab|   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |Ctl/' |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |Sh/Cap|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Sh/Ent|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |  `   | Ins  | Del  | GUI  |Lower | Bksp |Space |Raise | Left | Down |  Up  |Right |
+ * |RAl/Co| Ins  | Del  | GUI  |Lower | Bksp |Space |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [QWERTY] = KEYMAP( \
-    MT(MOD_LALT, KC_ESC),  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    MT(MOD_RALT, KC_APP), \
-    MT(MOD_LCTL, KC_TAB),  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, MT(MOD_RCTL, KC_QUOT), \
+    MT(MOD_LALT, KC_ESC),  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    TG_NUM, \
+    MT(MOD_LCTL, KC_TAB),  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
     MT(MOD_LSFT, KC_CAPS), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, MT(MOD_RSFT, KC_ENT), \
-    KC_GRV,                KC_INS,  KC_DEL,  KC_LGUI, TO_LWR,  KC_BSPC, KC_SPC,  TO_RSE,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
+    MT(MOD_RALT, KC_APP),  KC_INS,  KC_DEL,  KC_LGUI, TO_LWR,  KC_BSPC, KC_SPC,  TO_RSE,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
 ),
 
 /* Lower
@@ -68,5 +70,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_LCBR, KC_LBRC, KC_LPRN, KC_QUOT, KC_MINS, KC_UNDS, KC_DQUO, KC_RPRN, KC_RBRC, KC_RCBR, _______, \
   _______, KC_MPRV, KC_MPLY, KC_MSTP, KC_MNXT, KC_MUTE, _______, KC_BTN3, _______, KC_LBRC, KC_RBRC, _______, \
   _______, _______, _______, _______, _______, KC_DEL,  KC_ENT,  _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END \
+),
+
+/* Num
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |   7  |   8  |   9  |   +  |   /  |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |   4  |   5  |   6  |   -  |   *  |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |   1  |   2  |   3  |   0  |   .  |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+
+[NUM] = KEYMAP( \
+  _______, _______, _______, _______, _______, KC_NLCK, KC_KP_7, KC_KP_8, KC_KP_9, KC_PPLS, KC_PSLS, _______, \
+  _______, _______, _______, _______, _______, _______, KC_KP_4, KC_KP_5, KC_KP_6, KC_PMNS, KC_PAST, _______, \
+  _______, _______, _______, _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_0, KC_PDOT, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 )
 };
