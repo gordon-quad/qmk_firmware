@@ -32,3 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef SUBPROJECT_yoba
 	#include "../../yoba/config.h"
 #endif
+#ifdef SUBPROJECT_yobarev2
+	#include "../../yobarev2/config.h"
+#endif

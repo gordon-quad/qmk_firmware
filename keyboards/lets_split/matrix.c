@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include "print.h"
+#include "backlight.h"
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
@@ -194,9 +195,36 @@ int serial_transaction(void) {
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         matrix[slaveOffset+i] = serial_slave_buffer[i];
     }
+
     return 0;
 }
 #endif
+
+void slave_process_cmd(uint8_t cmd)
+{
+    switch(cmd)
+    {
+#ifdef BACKLIGHT_ENABLE
+        case CMD_BACKLIGHT_INCREASE:
+            backlight_increase();
+            break;
+        case CMD_BACKLIGHT_DECREASE:
+            backlight_decrease();
+            break;
+        case CMD_BACKLIGHT_TOGGLE:
+            backlight_toggle();
+            break;
+        case CMD_BACKLIGHT_STEP:
+            backlight_step();
+            break;
+        case CMD_BACKLIGHT_LEVEL_0 ... CMD_BACKLIGHT_LEVEL_15:
+            backlight_level(cmd - CMD_BACKLIGHT_LEVEL_0);
+            break;
+#endif
+        default:
+            break;
+    }
+}
 
 uint8_t matrix_scan(void)
 {
@@ -238,10 +266,18 @@ void matrix_slave_scan(void) {
     int offset = (isLeftHand) ? 0 : (MATRIX_ROWS / 2);
 
 #ifdef USE_I2C
+    int cmd;
+
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         /* i2c_slave_buffer[i] = matrix[offset+i]; */
         i2c_slave_buffer[i] = matrix[offset+i];
     }
+
+    cmd = i2c_slave_buffer[I2C_CMD_OFFSET];
+    i2c_slave_buffer[I2C_CMD_OFFSET] = CMD_NONE;
+
+    slave_process_cmd(cmd);
+
 #else // USE_SERIAL
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         serial_slave_buffer[i] = matrix[offset+i];

@@ -20,6 +20,8 @@
 
 extern volatile uint8_t i2c_slave_buffer[SLAVE_BUFFER_SIZE];
 
+#define I2C_CMD_OFFSET (SLAVE_BUFFER_SIZE - 1)
+
 void i2c_master_init(void);
 uint8_t i2c_master_start(uint8_t address);
 void i2c_master_stop(void);

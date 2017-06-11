@@ -13,6 +13,9 @@
 #ifdef SUBPROJECT_yoba
     #include "yoba.h"
 #endif
+#ifdef SUBPROJECT_yobarev2
+    #include "yobarev2.h"
+#endif
 
 #include "quantum.h"
 

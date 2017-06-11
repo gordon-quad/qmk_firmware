@@ -5,6 +5,7 @@
 #include <util/twi.h>
 #include <stdbool.h>
 #include "i2c.h"
+#include "split_util.h"
 
 #ifdef USE_I2C
 
@@ -111,6 +112,7 @@ void i2c_slave_init(uint8_t address) {
   // TWINT - twi interrupt flag
   // TWIE  - enable the twi interrupt
   TWCR = (1<<TWIE) | (1<<TWEA) | (1<<TWINT) | (1<<TWEN);
+  i2c_slave_buffer[I2C_CMD_OFFSET] = CMD_NONE;
 }
 
 ISR(TWI_vect);
