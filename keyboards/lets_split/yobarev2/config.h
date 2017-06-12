@@ -48,6 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PIN C6
 #define BACKLIGHT_LEVELS 4
+#define BACKLIGHT_BREATHING
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5

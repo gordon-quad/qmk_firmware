@@ -614,24 +614,52 @@ static const uint8_t backlight_pin = BACKLIGHT_PIN;
 #  define TCCRxA TCCR1A
 #  define TCCRxB TCCR1B
 #  define ICRx   ICR1
+#  define TIMSKx TIMSK1
+#  define OCIExx OCIE1C
+#  define WGMx1  WGM11
+#  define WGMx2  WGM12
+#  define WGMx3  WGM13
+#  define CSx0   CS10
+#  define TIMERx_COMPx_vect TIMER3_COMPC_vect
 #elif BACKLIGHT_PIN == B6
 #  define COMxx1 COM1B1
 #  define OCRxx  OCR1B
 #  define TCCRxA TCCR1A
 #  define TCCRxB TCCR1B
 #  define ICRx   ICR1
+#  define TIMSKx TIMSK1
+#  define OCIExx OCIE1B
+#  define WGMx1  WGM11
+#  define WGMx2  WGM12
+#  define WGMx3  WGM13
+#  define CSx0   CS10
+#  define TIMERx_COMPx_vect TIMER3_COMPB_vect
 #elif BACKLIGHT_PIN == B5
 #  define COMxx1 COM1A1
 #  define OCRxx  OCR1A
 #  define TCCRxA TCCR1A
 #  define TCCRxB TCCR1B
 #  define ICRx   ICR1
+#  define TIMSKx TIMSK1
+#  define OCIExx OCIE1A
+#  define WGMx1  WGM11
+#  define WGMx2  WGM12
+#  define WGMx3  WGM13
+#  define CSx0   CS10
+#  define TIMERx_COMPx_vect TIMER3_COMPA_vect
 #elif BACKLIGHT_PIN == C6
 #  define COMxx1 COM3A1
 #  define OCRxx  OCR3A
 #  define TCCRxA TCCR3A
 #  define TCCRxB TCCR3B
 #  define ICRx   ICR3
+#  define TIMSKx TIMSK3
+#  define OCIExx OCIE3A
+#  define WGMx1  WGM31
+#  define WGMx2  WGM32
+#  define WGMx3  WGM33
+#  define CSx0   CS30
+#  define TIMERx_COMPx_vect TIMER3_COMPA_vect
 #else
 #  define NO_BACKLIGHT_CLOCK
 #endif
@@ -669,8 +697,8 @@ void backlight_init_ports(void)
     // WGM Mode 14 (Fast PWM) = WGM13=1 WGM12=1 WGM11=1 WGM10=0
     // Clock Select = clk/1 (no prescaling) = CS12=0 CS11=0 CS10=1
 
-    TCCRxA = _BV(COMxx1) | _BV(WGM11); // = 0b00001010;
-    TCCRxB = _BV(WGM13) | _BV(WGM12) | _BV(CS10); // = 0b00011001;
+    TCCRxA = _BV(COMxx1) | _BV(WGMx1); // = 0b00001010;
+    TCCRxB = _BV(WGMx3) | _BV(WGMx2) | _BV(CSx0); // = 0b00011001;
   #endif
 
   backlight_init();
@@ -753,7 +781,7 @@ void breathing_enable(void)
     breathing_halt = BREATHING_NO_HALT;
 
     // Enable breathing interrupt
-    TIMSK1 |= _BV(OCIE1A);
+    TIMSKx |= _BV(OCIExx);
 }
 
 void breathing_pulse(void)
@@ -771,13 +799,13 @@ void breathing_pulse(void)
     breathing_halt = BREATHING_HALT_ON;
 
     // Enable breathing interrupt
-    TIMSK1 |= _BV(OCIE1A);
+    TIMSKx |= _BV(OCIExx);
 }
 
 void breathing_disable(void)
 {
     // Disable breathing interrupt
-    TIMSK1 &= ~_BV(OCIE1A);
+    TIMSKx &= ~_BV(OCIExx);
     backlight_set(get_backlight_level());
 }
 
@@ -813,7 +841,7 @@ void breathing_toggle(void)
     }
 
     // Toggle breathing interrupt
-    TIMSK1 ^= _BV(OCIE1A);
+    TIMSKx ^= _BV(OCIExx);
 
     // Restore backlight level
     if (!is_breathing())
@@ -824,7 +852,7 @@ void breathing_toggle(void)
 
 bool is_breathing(void)
 {
-    return (TIMSK1 && _BV(OCIE1A));
+    return (TIMSKx && _BV(OCIExx));
 }
 
 void breathing_intensity_default(void)
@@ -851,7 +879,7 @@ void breathing_speed_set(uint8_t value)
     if (is_breathing_now)
     {
         // Disable breathing interrupt
-        TIMSK1 &= ~_BV(OCIE1A);
+        TIMSKx &= ~_BV(OCIExx);
     }
 
     breath_speed = value;
@@ -862,7 +890,7 @@ void breathing_speed_set(uint8_t value)
         breathing_index = (( (uint8_t)( (breathing_index) >> old_breath_speed ) ) & 0x3F) << breath_speed;
 
         // Enable breathing interrupt
-        TIMSK1 |= _BV(OCIE1A);
+        TIMSKx |= _BV(OCIExx);
     }
 
 }
@@ -911,7 +939,7 @@ static const uint8_t breathing_table[64] PROGMEM = {
  15,  10,   6,   4,   2,   1,   0,   0,   0,   0,   0,   0,   0,   0,   0,   0,
 };
 
-ISR(TIMER1_COMPA_vect)
+ISR(TIMERx_COMPx_vect)
 {
     // OCRxx = (pgm_read_byte(&breathing_table[ ( (uint8_t)( (breathing_index++) >> breath_speed ) ) & 0x3F ] )) * breath_intensity;
 
@@ -921,7 +949,7 @@ ISR(TIMER1_COMPA_vect)
     if (((breathing_halt == BREATHING_HALT_ON) && (local_index == 0x20)) || ((breathing_halt == BREATHING_HALT_OFF) && (local_index == 0x3F)))
     {
         // Disable breathing interrupt
-        TIMSK1 &= ~_BV(OCIE1A);
+        TIMSKx &= ~_BV(OCIExx);
     }
 
     OCRxx = (uint16_t)(((uint16_t)pgm_read_byte(&breathing_table[local_index]) * 257)) >> breath_intensity;

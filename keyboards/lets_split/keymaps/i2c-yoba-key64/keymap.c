@@ -20,6 +20,10 @@
 // Alias to make layering more clear
 #define _______ KC_TRNS
 
+#define MACRO_BREATHING_TOGGLE 1
+
+#define M_BRTOG M(MACRO_BREATHING_TOGGLE)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
@@ -73,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [RAISE] = KEYMAP( \
-  _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______, \
+  _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    M_BRTOG, \
   _______, KC_LCBR, KC_LBRC, KC_LPRN, KC_QUOT, KC_MINS, KC_UNDS, KC_DQUO, KC_RPRN, KC_RBRC, KC_RCBR, _______, \
   _______, KC_MPRV, KC_MPLY, KC_MSTP, KC_MNXT, KC_MUTE, BL_INC,  KC_BTN3, BL_DEC,  KC_LBRC, KC_RBRC, _______, \
   _______, _______, _______, _______, _______, KC_DEL,  KC_ENT,  _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END \
@@ -173,4 +177,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         default:
             return true;
     }
+}
+
+
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+
+  // MACRODOWN only works in this function
+  switch(id)
+  {
+      case MACRO_BREATHING_TOGGLE:
+          if (record->event.pressed)
+          {
+#ifdef USE_I2C
+              i2c_cmd(CMD_BREATHING_TOGGLE);
+#endif
+              breathing_toggle();
+          }
+          break;
+     default:
+          break;
+  }
+  return MACRO_NONE;
 }

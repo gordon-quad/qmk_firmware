@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <util/delay.h>
 #include "print.h"
 #include "backlight.h"
+#include "quantum.h"
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
@@ -219,7 +220,38 @@ void slave_process_cmd(uint8_t cmd)
             break;
         case CMD_BACKLIGHT_LEVEL_0 ... CMD_BACKLIGHT_LEVEL_15:
             backlight_level(cmd - CMD_BACKLIGHT_LEVEL_0);
+#ifdef BACKLIGHT_BREATHING
+        case CMD_BREATHING_ENABLE:
+            breathing_enable();
             break;
+        case CMD_BREATHING_DISABLE:
+            breathing_disable();
+            break;
+        case CMD_BREATHING_SELF_DISABLE:
+            breathing_self_disable();
+            break;
+        case CMD_BREATHING_TOGGLE:
+            breathing_toggle();
+            break;
+        case CMD_BREATHING_DEFAULTS:
+            breathing_defaults();
+            break;
+        case CMD_BREATHING_INTENSITY_DEFAULT:
+            breathing_intensity_default();
+            break;
+        case CMD_BREATHING_SPEED_DEFAULT:
+            breathing_speed_default();
+            break;
+        case CMD_BREATHING_SPEED_SET_0 ... CMD_BREATHING_SPEED_SET_15:
+            breathing_speed_set(cmd - CMD_BREATHING_SPEED_SET_0);
+            break;
+        case CMD_BREATHING_SPEED_INC_0 ... CMD_BREATHING_SPEED_INC_15:
+            breathing_speed_inc(cmd - CMD_BREATHING_SPEED_INC_0);
+            break;
+        case CMD_BREATHING_SPEED_DEC_0 ... CMD_BREATHING_SPEED_DEC_15:
+            breathing_speed_dec(cmd - CMD_BREATHING_SPEED_DEC_0);
+            break;
+#endif
 #endif
         default:
             break;
