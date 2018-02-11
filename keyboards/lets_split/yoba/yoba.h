@@ -1,7 +1,7 @@
 #ifndef YOBA_H
 #define YOBA_H
 
-#include "../lets_split.h"
+#include "lets_split.h"
 
 //void promicro_bootloader_jmp(bool program);
 #include "quantum.h"

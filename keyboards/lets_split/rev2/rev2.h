@@ -1,32 +1,62 @@
 #ifndef REV2_H
 #define REV2_H
 
-#include "../lets_split.h"
+#include "lets_split.h"
 
 //void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
 
+
+#ifdef USE_I2C
+#include <stddef.h>
+#ifdef __AVR__
+	#include <avr/io.h>
+	#include <avr/interrupt.h>
+#endif
+#endif
+
 //void promicro_bootloader_jmp(bool program);
 
+#ifndef FLIP_HALF
+// Standard Keymap
+// (TRRS jack on the left half is to the right, TRRS jack on the right half is to the left)
 #define KEYMAP( \
-	k00, k01, k02, k03, k04, k05, k45, k44, k43, k42, k41, k40, \
-	k10, k11, k12, k13, k14, k15, k55, k54, k53, k52, k51, k50, \
-	k20, k21, k22, k23, k24, k25, k65, k64, k63, k62, k61, k60, \
-	k30, k31, k32, k33, k34, k35, k75, k74, k73, k72, k71, k70 \
+	L00, L01, L02, L03, L04, L05, R00, R01, R02, R03, R04, R05, \
+	L10, L11, L12, L13, L14, L15, R10, R11, R12, R13, R14, R15, \
+	L20, L21, L22, L23, L24, L25, R20, R21, R22, R23, R24, R25, \
+	L30, L31, L32, L33, L34, L35, R30, R31, R32, R33, R34, R35 \
 	) \
 	{ \
-        {k00, k10, k20, k30}, \
-        {k01, k11, k21, k31}, \
-        {k02, k12, k22, k32}, \
-        {k03, k13, k23, k33}, \
-        {k04, k14, k24, k34}, \
-        {k05, k15, k25, k35}, \
-        {k45, k55, k65, k75}, \
-        {k44, k54, k64, k74}, \
-        {k43, k53, k63, k73}, \
-        {k42, k52, k62, k72}, \
-        {k41, k51, k61, k71}, \
-        {k40, k50, k60, k70} \
+		{ L00, L01, L02, L03, L04, L05 }, \
+		{ L10, L11, L12, L13, L14, L15 }, \
+		{ L20, L21, L22, L23, L24, L25 }, \
+		{ L30, L31, L32, L33, L34, L35 }, \
+		{ R05, R04, R03, R02, R01, R00 }, \
+		{ R15, R14, R13, R12, R11, R10 }, \
+		{ R25, R24, R23, R22, R21, R20 }, \
+		{ R35, R34, R33, R32, R31, R30 } \
 	}
+#else
+// Keymap with right side flipped
+// (TRRS jack on both halves are to the right)
+#define KEYMAP( \
+	L00, L01, L02, L03, L04, L05, R00, R01, R02, R03, R04, R05, \
+	L10, L11, L12, L13, L14, L15, R10, R11, R12, R13, R14, R15, \
+	L20, L21, L22, L23, L24, L25, R20, R21, R22, R23, R24, R25, \
+	L30, L31, L32, L33, L34, L35, R30, R31, R32, R33, R34, R35 \
+	) \
+	{ \
+		{ L00, L01, L02, L03, L04, L05 }, \
+		{ L10, L11, L12, L13, L14, L15 }, \
+		{ L20, L21, L22, L23, L24, L25 }, \
+		{ L30, L31, L32, L33, L34, L35 }, \
+		{ R00, R01, R02, R03, R04, R05 }, \
+		{ R10, R11, R12, R13, R14, R15 }, \
+		{ R20, R21, R22, R23, R24, R25 }, \
+		{ R30, R31, R32, R33, R34, R35 } \
+	}
+#endif
+
+#define LAYOUT_ortho_4x12 KEYMAP
 
 #endif

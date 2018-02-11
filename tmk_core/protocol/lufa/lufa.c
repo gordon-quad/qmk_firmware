@@ -49,7 +49,7 @@
 #endif
 #include "suspend.h"
 
-#include "descriptor.h"
+#include "usb_descriptor.h"
 #include "lufa.h"
 #include "quantum.h"
 #include <util/atomic.h>
@@ -67,10 +67,11 @@
 #endif
 
 #ifdef BLUETOOTH_ENABLE
-    #include "bluetooth.h"
-#endif
-#ifdef ADAFRUIT_BLE_ENABLE
+  #ifdef MODULE_ADAFRUIT_BLE
     #include "adafruit_ble.h"
+  #else
+    #include "bluetooth.h"
+  #endif
 #endif
 
 #ifdef VIRTSER_ENABLE
@@ -82,7 +83,7 @@
 #endif
 
 #ifdef MIDI_ENABLE
-  #include "sysex_tools.h"
+  #include "qmk_midi.h"
 #endif
 
 #ifdef RAW_ENABLE
@@ -96,12 +97,6 @@ static uint8_t keyboard_led_stats = 0;
 
 static report_keyboard_t keyboard_report_sent;
 
-#ifdef MIDI_ENABLE
-static void usb_send_func(MidiDevice * device, uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2);
-static void usb_get_midi(MidiDevice * device);
-static void midi_usb_init(MidiDevice * device);
-#endif
-
 /* Host driver */
 static uint8_t keyboard_leds(void);
 static void send_keyboard(report_keyboard_t *report);
@@ -114,47 +109,7 @@ host_driver_t lufa_driver = {
     send_mouse,
     send_system,
     send_consumer,
-#ifdef MIDI_ENABLE
-    usb_send_func,
-    usb_get_midi,
-    midi_usb_init
-#endif
 };
-
-/*******************************************************************************
- * MIDI
- ******************************************************************************/
-
-#ifdef MIDI_ENABLE
-USB_ClassInfo_MIDI_Device_t USB_MIDI_Interface =
-{
-  .Config =
-  {
-    .StreamingInterfaceNumber = AS_INTERFACE,
-    .DataINEndpoint           =
-    {
-      .Address          = MIDI_STREAM_IN_EPADDR,
-      .Size             = MIDI_STREAM_EPSIZE,
-      .Banks            = 1,
-    },
-    .DataOUTEndpoint          =
-    {
-      .Address          = MIDI_STREAM_OUT_EPADDR,
-      .Size             = MIDI_STREAM_EPSIZE,
-      .Banks            = 1,
-    },
-  },
-};
-
-#define SYSEX_START_OR_CONT 0x40
-#define SYSEX_ENDS_IN_1 0x50
-#define SYSEX_ENDS_IN_2 0x60
-#define SYSEX_ENDS_IN_3 0x70
-
-#define SYS_COMMON_1 0x50
-#define SYS_COMMON_2 0x20
-#define SYS_COMMON_3 0x30
-#endif
 
 #ifdef VIRTSER_ENABLE
 USB_ClassInfo_CDC_Device_t cdc_device =
@@ -602,18 +557,23 @@ static void send_keyboard(report_keyboard_t *report)
     uint8_t where = where_to_send();
 
 #ifdef BLUETOOTH_ENABLE
-    if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
-        bluefruit_serial_send(0xFD);
-        for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
-            bluefruit_serial_send(report->raw[i]);
-        }
-    }
-#endif
-
-#ifdef ADAFRUIT_BLE_ENABLE
-    if (where == OUTPUT_ADAFRUIT_BLE) {
+  if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
+    #ifdef MODULE_ADAFRUIT_BLE
       adafruit_ble_send_keys(report->mods, report->keys, sizeof(report->keys));
-    }
+    #elif MODULE_RN42
+       bluefruit_serial_send(0xFD);
+       bluefruit_serial_send(0x09);
+       bluefruit_serial_send(0x01);
+       for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
+         bluefruit_serial_send(report->raw[i]);
+       }
+    #else
+      bluefruit_serial_send(0xFD);
+      for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
+        bluefruit_serial_send(report->raw[i]);
+      }
+    #endif
+  }
 #endif
 
     if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
@@ -660,24 +620,22 @@ static void send_mouse(report_mouse_t *report)
     uint8_t where = where_to_send();
 
 #ifdef BLUETOOTH_ENABLE
-    if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
-        bluefruit_serial_send(0xFD);
-        bluefruit_serial_send(0x00);
-        bluefruit_serial_send(0x03);
-        bluefruit_serial_send(report->buttons);
-        bluefruit_serial_send(report->x);
-        bluefruit_serial_send(report->y);
-        bluefruit_serial_send(report->v); // should try sending the wheel v here
-        bluefruit_serial_send(report->h); // should try sending the wheel h here
-        bluefruit_serial_send(0x00);
-    }
-#endif
-
-#ifdef ADAFRUIT_BLE_ENABLE
-    if (where == OUTPUT_ADAFRUIT_BLE) {
+  if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
+    #ifdef MODULE_ADAFRUIT_BLE
       // FIXME: mouse buttons
-      adafruit_ble_send_mouse_move(report->x, report->y, report->v, report->h);
-    }
+      adafruit_ble_send_mouse_move(report->x, report->y, report->v, report->h, report->buttons);
+    #else
+      bluefruit_serial_send(0xFD);
+      bluefruit_serial_send(0x00);
+      bluefruit_serial_send(0x03);
+      bluefruit_serial_send(report->buttons);
+      bluefruit_serial_send(report->x);
+      bluefruit_serial_send(report->y);
+      bluefruit_serial_send(report->v); // should try sending the wheel v here
+      bluefruit_serial_send(report->h); // should try sending the wheel h here
+      bluefruit_serial_send(0x00);
+    #endif
+  }
 #endif
 
     if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
@@ -727,6 +685,19 @@ static void send_consumer(uint16_t data)
 
 #ifdef BLUETOOTH_ENABLE
     if (where == OUTPUT_BLUETOOTH || where == OUTPUT_USB_AND_BT) {
+      #ifdef MODULE_ADAFRUIT_BLE
+        adafruit_ble_send_consumer_key(data, 0);
+      #elif MODULE_RN42
+        static uint16_t last_data = 0;
+        if (data == last_data) return;
+        last_data = data;
+        uint16_t bitmap = CONSUMER2RN42(data);
+        bluefruit_serial_send(0xFD);
+        bluefruit_serial_send(0x03);
+        bluefruit_serial_send(0x03);
+        bluefruit_serial_send(bitmap&0xFF);
+        bluefruit_serial_send((bitmap>>8)&0xFF);
+      #else
         static uint16_t last_data = 0;
         if (data == last_data) return;
         last_data = data;
@@ -740,12 +711,7 @@ static void send_consumer(uint16_t data)
         bluefruit_serial_send(0x00);
         bluefruit_serial_send(0x00);
         bluefruit_serial_send(0x00);
-    }
-#endif
-
-#ifdef ADAFRUIT_BLE_ENABLE
-    if (where == OUTPUT_ADAFRUIT_BLE) {
-      adafruit_ble_send_consumer_key(data, 0);
+      #endif
     }
 #endif
 
@@ -841,170 +807,32 @@ int8_t sendchar(uint8_t c)
  ******************************************************************************/
 
 #ifdef MIDI_ENABLE
-static void usb_send_func(MidiDevice * device, uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2) {
-  MIDI_EventPacket_t event;
-  event.Data1 = byte0;
-  event.Data2 = byte1;
-  event.Data3 = byte2;
-
-  uint8_t cable = 0;
-
-// Endpoint_SelectEndpoint(MIDI_STREAM_IN_EPNUM);
-
-  //if the length is undefined we assume it is a SYSEX message
-  if (midi_packet_length(byte0) == UNDEFINED) {
-    switch(cnt) {
-      case 3:
-        if (byte2 == SYSEX_END)
-          event.Event = MIDI_EVENT(cable, SYSEX_ENDS_IN_3);
-        else
-          event.Event = MIDI_EVENT(cable, SYSEX_START_OR_CONT);
-        break;
-      case 2:
-        if (byte1 == SYSEX_END)
-          event.Event = MIDI_EVENT(cable, SYSEX_ENDS_IN_2);
-        else
-          event.Event = MIDI_EVENT(cable, SYSEX_START_OR_CONT);
-        break;
-      case 1:
-        if (byte0 == SYSEX_END)
-          event.Event = MIDI_EVENT(cable, SYSEX_ENDS_IN_1);
-        else
-          event.Event = MIDI_EVENT(cable, SYSEX_START_OR_CONT);
-        break;
-      default:
-        return; //invalid cnt
-    }
-  } else {
-    //deal with 'system common' messages
-    //TODO are there any more?
-    switch(byte0 & 0xF0){
-      case MIDI_SONGPOSITION:
-        event.Event = MIDI_EVENT(cable, SYS_COMMON_3);
-        break;
-      case MIDI_SONGSELECT:
-      case MIDI_TC_QUARTERFRAME:
-        event.Event = MIDI_EVENT(cable, SYS_COMMON_2);
-        break;
-      default:
-        event.Event = MIDI_EVENT(cable, byte0);
-        break;
-    }
-  }
-
-// Endpoint_Write_Stream_LE(&event, sizeof(event), NULL);
-// Endpoint_ClearIN();
-
-  MIDI_Device_SendEventPacket(&USB_MIDI_Interface, &event);
-  MIDI_Device_Flush(&USB_MIDI_Interface);
-  MIDI_Device_USBTask(&USB_MIDI_Interface);
-  USB_USBTask();
-}
-
-static void usb_get_midi(MidiDevice * device) {
-  MIDI_EventPacket_t event;
-  while (MIDI_Device_ReceiveEventPacket(&USB_MIDI_Interface, &event)) {
-
-    midi_packet_length_t length = midi_packet_length(event.Data1);
-    uint8_t input[3];
-    input[0] = event.Data1;
-    input[1] = event.Data2;
-    input[2] = event.Data3;
-    if (length == UNDEFINED) {
-      //sysex
-      if (event.Event == MIDI_EVENT(0, SYSEX_START_OR_CONT) || event.Event == MIDI_EVENT(0, SYSEX_ENDS_IN_3)) {
-        length = 3;
-      } else if (event.Event == MIDI_EVENT(0, SYSEX_ENDS_IN_2)) {
-        length = 2;
-      } else if(event.Event ==  MIDI_EVENT(0, SYSEX_ENDS_IN_1)) {
-        length = 1;
-      } else {
-        //XXX what to do?
-      }
-    }
-
-    //pass the data to the device input function
-    if (length != UNDEFINED)
-      midi_device_input(device, length, input);
-  }
-  MIDI_Device_USBTask(&USB_MIDI_Interface);
-  USB_USBTask();
-}
-
-static void midi_usb_init(MidiDevice * device){
-  midi_device_init(device);
-  midi_device_set_send_func(device, usb_send_func);
-  midi_device_set_pre_input_process_func(device, usb_get_midi);
-
-  // SetupHardware();
-  sei();
-}
-
-void MIDI_Task(void)
+USB_ClassInfo_MIDI_Device_t USB_MIDI_Interface =
 {
-
-    /* Device must be connected and configured for the task to run */
-    dprint("in MIDI_TASK\n");
-    if (USB_DeviceState != DEVICE_STATE_Configured)
-      return;
-    dprint("continuing in MIDI_TASK\n");
-
-    Endpoint_SelectEndpoint(MIDI_STREAM_IN_EPADDR);
-
-    if (Endpoint_IsINReady())
+  .Config =
+  {
+    .StreamingInterfaceNumber = AS_INTERFACE,
+    .DataINEndpoint           =
     {
-
-        dprint("Endpoint is ready\n");
-
-        uint8_t MIDICommand = 0;
-        uint8_t MIDIPitch;
-
-        /* Get board button status - if pressed use channel 10 (percussion), otherwise use channel 1 */
-        uint8_t Channel = MIDI_CHANNEL(1);
-
-        MIDICommand = MIDI_COMMAND_NOTE_ON;
-        MIDIPitch   = 0x3E;
-
-        /* Check if a MIDI command is to be sent */
-        if (MIDICommand)
-        {
-            dprint("Command exists\n");
-            MIDI_EventPacket_t MIDIEvent = (MIDI_EventPacket_t)
-                {
-                    .Event       = MIDI_EVENT(0, MIDICommand),
-
-                    .Data1       = MIDICommand | Channel,
-                    .Data2       = MIDIPitch,
-                    .Data3       = MIDI_STANDARD_VELOCITY,
-                };
-
-            /* Write the MIDI event packet to the endpoint */
-            Endpoint_Write_Stream_LE(&MIDIEvent, sizeof(MIDIEvent), NULL);
-
-            /* Send the data in the endpoint to the host */
-            Endpoint_ClearIN();
-        }
-    }
-
-
-    /* Select the MIDI OUT stream */
-    Endpoint_SelectEndpoint(MIDI_STREAM_OUT_EPADDR);
-
-    /* Check if a MIDI command has been received */
-    if (Endpoint_IsOUTReceived())
+      .Address          = MIDI_STREAM_IN_EPADDR,
+      .Size             = MIDI_STREAM_EPSIZE,
+      .Banks            = 1,
+    },
+    .DataOUTEndpoint          =
     {
-        MIDI_EventPacket_t MIDIEvent;
+      .Address          = MIDI_STREAM_OUT_EPADDR,
+      .Size             = MIDI_STREAM_EPSIZE,
+      .Banks            = 1,
+    },
+  },
+};
 
-        /* Read the MIDI event packet from the endpoint */
-        Endpoint_Read_Stream_LE(&MIDIEvent, sizeof(MIDIEvent), NULL);
+void send_midi_packet(MIDI_EventPacket_t* event) {
+  MIDI_Device_SendEventPacket(&USB_MIDI_Interface, event);
+}
 
-        /* If the endpoint is now empty, clear the bank */
-        if (!(Endpoint_BytesInEndpoint()))
-        {
-            /* Clear the endpoint ready for new packet */
-            Endpoint_ClearOUT();
-        }
-    }
+bool recv_midi_packet(MIDI_EventPacket_t* const event) {
+  return MIDI_Device_ReceiveEventPacket(&USB_MIDI_Interface, event);
 }
 
 #endif
@@ -1093,24 +921,11 @@ static void setup_usb(void)
     print_set_sendchar(sendchar);
 }
 
-
-#ifdef MIDI_ENABLE
-void fallthrough_callback(MidiDevice * device,
-    uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2);
-void cc_callback(MidiDevice * device,
-    uint8_t chan, uint8_t num, uint8_t val);
-void sysex_callback(MidiDevice * device,
-    uint16_t start, uint8_t length, uint8_t * data);
-#endif
-
 int main(void)  __attribute__ ((weak));
 int main(void)
 {
-
 #ifdef MIDI_ENABLE
-    midi_device_init(&midi_device);
-    midi_device_set_send_func(&midi_device, usb_send_func);
-    midi_device_set_pre_input_process_func(&midi_device, usb_get_midi);
+    setup_midi();
 #endif
 
     setup_mcu();
@@ -1118,19 +933,7 @@ int main(void)
     setup_usb();
     sei();
 
-#ifdef MIDI_ENABLE
-    midi_register_fallthrough_callback(&midi_device, fallthrough_callback);
-    midi_register_cc_callback(&midi_device, cc_callback);
-    midi_register_sysex_callback(&midi_device, sysex_callback);
-
-    // init_notes();
-    // midi_send_cc(&midi_device, 0, 1, 2);
-    // midi_send_cc(&midi_device, 15, 1, 0);
-    // midi_send_noteon(&midi_device, 0, 64, 127);
-    // midi_send_noteoff(&midi_device, 0, 64, 127);
-#endif
-
-#ifdef BLUETOOTH_ENABLE
+#if defined(MODULE_ADAFRUIT_EZKEY) || defined(MODULE_RN42)
     serial_init();
 #endif
 
@@ -1161,7 +964,7 @@ int main(void)
 
     print("Keyboard start.\n");
     while (1) {
-        #if !defined(BLUETOOTH_ENABLE) && !defined(ADAFRUIT_BLE_ENABLE)
+        #if !defined(NO_USB_STARTUP_CHECK)
         while (USB_DeviceState == DEVICE_STATE_Suspended) {
             print("[s]");
             suspend_power_down();
@@ -1174,15 +977,14 @@ int main(void)
         keyboard_task();
 
 #ifdef MIDI_ENABLE
-        midi_device_process(&midi_device);
-        // MIDI_Task();
+        MIDI_Device_USBTask(&USB_MIDI_Interface);
 #endif
 
 #if defined(RGBLIGHT_ANIMATIONS) & defined(RGBLIGHT_ENABLE)
         rgblight_task();
 #endif
 
-#ifdef ADAFRUIT_BLE_ENABLE
+#ifdef MODULE_ADAFRUIT_BLE
         adafruit_ble_task();
 #endif
 
@@ -1202,71 +1004,10 @@ int main(void)
     }
 }
 
-#ifdef MIDI_ENABLE
-void fallthrough_callback(MidiDevice * device,
-    uint16_t cnt, uint8_t byte0, uint8_t byte1, uint8_t byte2){
-
-#ifdef AUDIO_ENABLE
-  if (cnt == 3) {
-    switch (byte0 & 0xF0) {
-        case MIDI_NOTEON:
-            play_note(((double)261.6)*pow(2.0, -4.0)*pow(2.0,(byte1 & 0x7F)/12.0), (byte2 & 0x7F) / 8);
-            break;
-        case MIDI_NOTEOFF:
-            stop_note(((double)261.6)*pow(2.0, -4.0)*pow(2.0,(byte1 & 0x7F)/12.0));
-            break;
-    }
-  }
-  if (byte0 == MIDI_STOP) {
-    stop_all_notes();
-  }
-#endif
+uint16_t CALLBACK_USB_GetDescriptor(const uint16_t wValue,
+                                    const uint16_t wIndex,
+                                    const void** const DescriptorAddress)
+{
+  return get_usb_descriptor(wValue, wIndex, DescriptorAddress);
 }
 
-
-void cc_callback(MidiDevice * device,
-    uint8_t chan, uint8_t num, uint8_t val) {
-  //sending it back on the next channel
-  // midi_send_cc(device, (chan + 1) % 16, num, val);
-}
-
-#ifdef API_SYSEX_ENABLE
-uint8_t midi_buffer[MIDI_SYSEX_BUFFER] = {0};
-#endif
-
-void sysex_callback(MidiDevice * device, uint16_t start, uint8_t length, uint8_t * data) {
-    #ifdef API_SYSEX_ENABLE
-        // SEND_STRING("\n");
-        // send_word(start);
-        // SEND_STRING(": ");
-        // Don't store the header
-        int16_t pos = start - 4;
-        for (uint8_t place = 0; place < length; place++) {
-            // send_byte(*data);
-            if (pos >= 0) {
-                if (*data == 0xF7) {
-                    // SEND_STRING("\nRD: ");
-                    // for (uint8_t i = 0; i < start + place + 1; i++){
-                    //     send_byte(midi_buffer[i]);
-                    // SEND_STRING(" ");
-                    // }
-                    const unsigned decoded_length = sysex_decoded_length(pos);
-                    uint8_t decoded[API_SYSEX_MAX_SIZE];
-                    sysex_decode(decoded, midi_buffer, pos);
-                    process_api(decoded_length, decoded);
-                    return;
-                }
-                else if (pos >= MIDI_SYSEX_BUFFER) {
-                    return;
-                }
-                midi_buffer[pos] = *data;
-            }
-            // SEND_STRING(" ");
-            data++;
-            pos++;
-        }
-    #endif
-}
-
-
-#endif

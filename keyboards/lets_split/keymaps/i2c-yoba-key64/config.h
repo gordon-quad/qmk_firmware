@@ -14,7 +14,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#ifndef _CONFIG_USER_H_
+#define _CONFIG_USER_H_
+
 #define USE_I2C
+
+#include "../../config.h"
 
 //#define MASTER_LEFT
 // #define _MASTER_RIGHT
@@ -22,18 +27,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define PREVENT_STUCK_MODIFIERS
 
-#ifdef SUBPROJECT_rev1
-    #include "../../rev1/config.h"
-#endif
-#ifdef SUBPROJECT_rev2
-    #include "../../rev2/config.h"
-#endif
-#ifdef SUBPROJECT_rev3fliphalf
-	#include "../../rev2fliphalf/config.h"
-#endif
-#ifdef SUBPROJECT_yoba
-	#include "../../yoba/config.h"
-#endif
-#ifdef SUBPROJECT_yobarev2
-	#include "../../yobarev2/config.h"
-#endif
+#endif//_CONFIG_USER_H_

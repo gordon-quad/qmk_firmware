@@ -26,8 +26,8 @@
 #define MACRO_BREATHING_TOGGLE    1
 #define MACRO_BREATHING_ENABLE    2
 #define MACRO_BREATHING_DISABLE   3
-#define MACRO_BREATHING_SPEED_INC 4
-#define MACRO_BREATHING_SPEED_DEC 5
+#define MACRO_BREATHING_PERIOD_INC 4
+#define MACRO_BREATHING_PERIOD_DEC 5
 #define MACRO_CYR_A               6
 #define MACRO_CYR_B               7
 #define MACRO_CYR_V               8
@@ -65,8 +65,8 @@
 #define M_BRTOG M(MACRO_BREATHING_TOGGLE)
 #define M_BREN  M(MACRO_BREATHING_ENABLE)
 #define M_BRDIS M(MACRO_BREATHING_DISABLE)
-#define M_BRINC M(MACRO_BREATHING_SPEED_INC)
-#define M_BRDEC M(MACRO_BREATHING_SPEED_DEC)
+#define M_BRINC M(MACRO_BREATHING_PERIOD_INC)
+#define M_BRDEC M(MACRO_BREATHING_PERIOD_DEC)
 
 #define M_CA    M(MACRO_CYR_A)
 #define M_CB    M(MACRO_CYR_B)
@@ -245,14 +245,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 #endif
             }
             return true;
-        case BL_0 ... BL_15:
-            if (!record->event.pressed)
-            {
-#ifdef USE_I2C
-                i2c_cmd(CMD_BACKLIGHT_LEVEL_0 + (keycode - BL_0));
-#endif
-            }
-            return true;
         case BL_DEC:
             if (!record->event.pressed)
             {
@@ -317,22 +309,22 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
               breathing_disable();
           }
           break;
-      case MACRO_BREATHING_SPEED_INC:
+      case MACRO_BREATHING_PERIOD_INC:
           if (record->event.pressed)
           {
 #ifdef USE_I2C
-              i2c_cmd(CMD_BREATHING_SPEED_INC_1);
+              i2c_cmd(CMD_BREATHING_PERIOD_INC);
 #endif
-              breathing_speed_inc(1);
+              breathing_period_inc();
           }
           break;
-      case MACRO_BREATHING_SPEED_DEC:
+      case MACRO_BREATHING_PERIOD_DEC:
           if (record->event.pressed)
           {
 #ifdef USE_I2C
-              i2c_cmd(CMD_BREATHING_SPEED_DEC_1);
+              i2c_cmd(CMD_BREATHING_PERIOD_DEC);
 #endif
-              breathing_speed_dec(1);
+              breathing_period_dec();
           }
           break;
 #endif//BACKLIGHT_BREATHING
