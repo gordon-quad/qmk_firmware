@@ -9,6 +9,8 @@
 #endif
 
 #include "keymap_colemak.h"
+#include "sendstring_colemak.h"
+
 #include "chords.h"
 
 #include <string.h>
@@ -189,10 +191,6 @@
 #define M_R_P2  M(MACRO_GC_R_P2)
 #define M_R_P1  M(MACRO_GC_R_P1)
 
-qk_tap_dance_action_t tap_dance_actions[] = {
-        [0]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
-};
-
 #define GC_L_P1 (1ULL<<0)
 #define GC_L_P2 (1ULL<<1)
 #define GC_L_P3 (1ULL<<2)
@@ -233,6 +231,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define GC_R_P4 (1ULL<<37)
 
 #define SFT_CAP TD(0)
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+        [0]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
+};
 
 uint64_t chord = 0ULL;
 uint64_t chord_pressed = 0ULL;

@@ -1157,13 +1157,13 @@ static const uint16_t *right_mi_map[] =
 
 static const char* chords[] =
 {
-    "", "a", "b", "c", "g", "k", "e", "t", "h", "l", "y", "n", "u", "m", "j",
-    ";", "r", "q", "s", "d", "f", "i", "v", "w", "x", "o", "z", "aj", "af",
-    "kj", "ks", "hk", "lj", "jg", ";j", ";s", "sk", "fk", "fh", "fl", "-", "!",
-    "\"", ",", ".", "?", "'", " ", "A", "B", "C", "G", "K", "E", "T", "H", "L",
-    "Y", "N", "U", "M", "J", ":", "R", "Q", "S", "D", "F", "I", "V", "W", "X",
-    "O", "Z", "Aj", "Af", "Kj", "Ks", "Hk", "Lj", "Jg", ":j", ":s", "Sk", "Fk",
-    "Fh", "Fl"
+    "", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
+    "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",
+    "an", "at", "en", "er", "he", "in", "nd", "on", "or", "re", "te", "th", "ti",
+    "-", "!", "\"", ",", ".", "?", "'", " ",
+    "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
+    "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+    "An", "At", "En", "Er", "He", "In", "Nd", "On", "Or", "Re", "Te", "Th", "Ti",
 };
 
 #endif//_CHORDS_H_
