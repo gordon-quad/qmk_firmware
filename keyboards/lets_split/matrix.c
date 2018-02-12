@@ -144,6 +144,7 @@ void matrix_init(void)
     }
 
     matrix_init_quantum();
+    backlight_init();
 
 }
 
