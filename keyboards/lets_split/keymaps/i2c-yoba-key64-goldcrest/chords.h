@@ -129,100 +129,165 @@
 #define MAP_SYMB        4
 #define MAP_MODS        5
 
-#define LEFT_PR_1  0b0000000
-#define LEFT_PR_2  0b0000100
-#define LEFT_PR_3  0b0001100
-#define LEFT_PR_4  0b0001000
-#define LEFT_PR_5  0b0000001
-#define LEFT_PR_6  0b0000011
-#define LEFT_PR_7  0b0000010
-#define LEFT_PR_8  0b0000101
-#define LEFT_PR_9  0b0001010
-#define LEFT_PR_10 0b0001111
-#define LEFT_PR_11 0b0010000
-#define LEFT_PR_12 0b0010100
-#define LEFT_PR_13 0b0011100
-#define LEFT_PR_14 0b0011000
-#define LEFT_PR_15 0b0010001
-#define LEFT_PR_16 0b0010011
-#define LEFT_PR_17 0b0010010
-#define LEFT_PR_18 0b0010101
-#define LEFT_PR_19 0b0011010
-#define LEFT_PR_20 0b0011111
-#define LEFT_PR_21 0b0110000
-#define LEFT_PR_22 0b0110100
-#define LEFT_PR_23 0b0111100
-#define LEFT_PR_24 0b0111000
-#define LEFT_PR_25 0b0110001
-#define LEFT_PR_26 0b0110011
-#define LEFT_PR_27 0b0110010
-#define LEFT_PR_28 0b0110101
-#define LEFT_PR_29 0b0111010
-#define LEFT_PR_30 0b0111111
-#define LEFT_PR_31 0b0100000
-#define LEFT_PR_32 0b0100100
-#define LEFT_PR_33 0b0101100
-#define LEFT_PR_34 0b0101000
-#define LEFT_PR_35 0b0100001
-#define LEFT_PR_36 0b0100011
-#define LEFT_PR_37 0b0100010
-#define LEFT_PR_38 0b0100101
-#define LEFT_PR_39 0b0101010
-#define LEFT_PR_40 0b0101111
-#define LEFT_PR_41 0b1100000
-#define LEFT_PR_42 0b1100100
-#define LEFT_PR_43 0b1101100
-#define LEFT_PR_44 0b1101000
-#define LEFT_PR_45 0b1100001
-#define LEFT_PR_46 0b1100011
-#define LEFT_PR_47 0b1100010
-#define LEFT_PR_48 0b1100101
-#define LEFT_PR_49 0b1101010
-#define LEFT_PR_50 0b1101111
-#define LEFT_PR_51 0b1000000
-#define LEFT_PR_52 0b1000100
-#define LEFT_PR_53 0b1001100
-#define LEFT_PR_54 0b1001000
-#define LEFT_PR_55 0b1000001
-#define LEFT_PR_56 0b1000011
-#define LEFT_PR_57 0b1000010
-#define LEFT_PR_58 0b1000101
-#define LEFT_PR_59 0b1001010
-#define LEFT_PR_60 0b1001111
+#define LEFT_PR_1    0b0000000
+#define LEFT_PR_2    0b0000100
+#define LEFT_PR_3    0b0001100
+#define LEFT_PR_4    0b0001000
+#define LEFT_PR_5    0b0000001
+#define LEFT_PR_6    0b0000011
+#define LEFT_PR_7    0b0000010
+#define LEFT_PR_8    0b0000101
+#define LEFT_PR_9    0b0001010
+#define LEFT_PR_10   0b0001111
+#define LEFT_PR_10_1 0b0001110
+#define LEFT_PR_10_2 0b0001101
+#define LEFT_PR_10_3 0b0001011
+#define LEFT_PR_10_4 0b0000111
+#define LEFT_PR_11   0b0010000
+#define LEFT_PR_12   0b0010100
+#define LEFT_PR_13   0b0011100
+#define LEFT_PR_14   0b0011000
+#define LEFT_PR_15   0b0010001
+#define LEFT_PR_16   0b0010011
+#define LEFT_PR_17   0b0010010
+#define LEFT_PR_18   0b0010101
+#define LEFT_PR_19   0b0011010
+#define LEFT_PR_20   0b0011111
+#define LEFT_PR_20_1 0b0011110
+#define LEFT_PR_20_2 0b0011101
+#define LEFT_PR_20_3 0b0011011
+#define LEFT_PR_20_4 0b0010111
+#define LEFT_PR_21   0b0110000
+#define LEFT_PR_22   0b0110100
+#define LEFT_PR_23   0b0111100
+#define LEFT_PR_24   0b0111000
+#define LEFT_PR_25   0b0110001
+#define LEFT_PR_26   0b0110011
+#define LEFT_PR_27   0b0110010
+#define LEFT_PR_28   0b0110101
+#define LEFT_PR_29   0b0111010
+#define LEFT_PR_30   0b0111111
+#define LEFT_PR_30_1 0b0111110
+#define LEFT_PR_30_2 0b0111101
+#define LEFT_PR_30_3 0b0111011
+#define LEFT_PR_30_4 0b0110111
+#define LEFT_PR_31   0b0100000
+#define LEFT_PR_32   0b0100100
+#define LEFT_PR_33   0b0101100
+#define LEFT_PR_34   0b0101000
+#define LEFT_PR_35   0b0100001
+#define LEFT_PR_36   0b0100011
+#define LEFT_PR_37   0b0100010
+#define LEFT_PR_38   0b0100101
+#define LEFT_PR_39   0b0101010
+#define LEFT_PR_40   0b0101111
+#define LEFT_PR_40_1 0b0101110
+#define LEFT_PR_40_2 0b0101101
+#define LEFT_PR_40_3 0b0101011
+#define LEFT_PR_40_4 0b0100111
+#define LEFT_PR_41   0b1100000
+#define LEFT_PR_42   0b1100100
+#define LEFT_PR_43   0b1101100
+#define LEFT_PR_44   0b1101000
+#define LEFT_PR_45   0b1100001
+#define LEFT_PR_46   0b1100011
+#define LEFT_PR_47   0b1100010
+#define LEFT_PR_48   0b1100101
+#define LEFT_PR_49   0b1101010
+#define LEFT_PR_50   0b1101111
+#define LEFT_PR_50_1 0b1101110
+#define LEFT_PR_50_2 0b1101101
+#define LEFT_PR_50_3 0b1101011
+#define LEFT_PR_50_4 0b1100111
+#define LEFT_PR_51   0b1000000
+#define LEFT_PR_52   0b1000100
+#define LEFT_PR_53   0b1001100
+#define LEFT_PR_54   0b1001000
+#define LEFT_PR_55   0b1000001
+#define LEFT_PR_56   0b1000011
+#define LEFT_PR_57   0b1000010
+#define LEFT_PR_58   0b1000101
+#define LEFT_PR_59   0b1001010
+#define LEFT_PR_60   0b1001111
+#define LEFT_PR_60_1 0b1001110
+#define LEFT_PR_60_2 0b1001101
+#define LEFT_PR_60_3 0b1001011
+#define LEFT_PR_60_4 0b1000111
 /*
+ Diff       relative difficulty
    4
- 025
+ 025        Bit numbers
  136
+  Id        Chord Id
+ Lat Cap    Latin map    Capital latin
+ Sym Mod    Symbol Map   Modifier Map
+ Cyr Cap    Cyrillic Map Capical cyrillic
 
-   -   -   -   -   -   -   -   -   -   -
- --- -x- -x- --- x-- x-- --- xx- --- xx-
- --- --- -x- -x- --- x-- x-- --- xx- xx-
-  1   2   3   4   5   6   7   8   9   10
+ 2 4 5 7  11 12 31 34 51 52
+ e t a o [ ]  i bks n  s  r
+ е т а о [ ]  и bks н  с  р
+ 1 2 3 4   5  6  7  8  9 10
+ 14  15  17  35 37 55 57
+  h   l   d   c  u  m  f
+  х   л   д   ц  у  м  ф
+ [ ] bks tab  +  -  *  /
+ 3 6 8 9 13 18 21 22 24 32 33 38 39 41 42 44 53 54 58 59
+ p g y b  v  k  x  j  q  z th an at en er re he in nd on
+ п г й б  в  к  ч  ж  ё  з  ш  щ  ъ  ы  ь  э  ю  я ст то
+ \ ` ~ @  #  $  %  ^  &  (  )  [  ]  {  }  <  >  | F1 F2
+ 16 19 25 27 36 45 47 56
+ te or ti es of en is it
+ но на ен по ов ни ко ра
+ F3 F4 F5 F6 F7 F8 F9 F10
+ 23  28  43  48  49
+  .   ,   '   "   -
+ F11 F12 INS DEL PGUP
+ 26   29   46
+  !    ?    _
+ PGDN HOME END
+ 10 40 60
+ 
+ 20
+ 
+ 50
+  
+ 30
 
-   x   x   x   x   x   x   x   x   x   x
- --- -x- -x- --- x-- x-- --- xx- --- xx-
- --- --- -x- -x- --- x-- x-- --- xx- xx-
-  11  12  13  14  15  16  17  18  19  20
+  0      10     20     10     10     20     10     20     20     40
+   -      -      -      -      -      -      -      -      -      -
+ ---    -x-    -x-    ---    x--    x--    ---    xx-    ---    xx-
+ ---    ---    -x-    -x-    ---    x--    x--    ---    xx-    xx-
+  1      2      3      4      5      6      7      8      9      10
 
-   x   x   x   x   x   x   x   x   x   x
- --x -xx -xx --x x-x x-x --x xxx --x xxx
- --- --- -x- -x- --- x-- x-- --- xx- xx-
-  21  22  23  24  25  26  27  28  29  30
+  10     10     20     15     15     25     15     20     25     45
+   x      x      x      x      x      x      x      x      x      x
+ ---    -x-    -x-    ---    x--    x--    ---    xx-    ---    xx-
+ ---    ---    -x-    -x-    ---    x--    x--    ---    xx-    xx-
+  11     12     13     14     15     16     17     18     19     20
 
-   -   -   -   -   -   -   -   -   -   -
- --x -xx -xx --x x-x x-x --x xxx --x xxx
- --- --- -x- -x- --- x-- x-- --- xx- xx-
-  31  32  33  34  35  36  37  38  39  40
+  20     20     30     20     25     35     25     30     35     55
+   x      x      x      x      x      x      x      x      x      x
+ --x    -xx    -xx    --x    x-x    x-x    --x    xxx    --x    xxx
+ ---    ---    -x-    -x-    ---    x--    x--    ---    xx-    xx-
+  21     22     23     24     25     26     27     28     29     30
 
-   -   -   -   -   -   -   -   -   -   -
- --x -xx -xx --x x-x x-x --x xxx --x xxx
- --x --x -xx -xx --x x-x x-x --x xxx xxx
-  41  42  43  44  45  46  47  48  49  50
+  10     20     20     10     15     25     15     20     20     40
+   -      -      -      -      -      -      -      -      -      -
+ --x    -xx    -xx    --x    x-x    x-x    --x    xxx    --x    xxx
+ ---    ---    -x-    -x-    ---    x--    x--    ---    xx-    xx-
+  31     32     33     34     35     36     37     38     39     40
 
-   -   -   -   -   -   -   -   -   -   -
- --- -x- -x- --- x-- x-- --- xx- --- xx-
- --x --x -xx -xx --x x-x x-x --x xxx xxx
-  51  52  53  54  55  56  57  58  59  60
+  20     20     30     20     25     35     25     30     30     50
+   -      -      -      -      -      -      -      -      -      -
+ --x    -xx    -xx    --x    x-x    x-x    --x    xxx    --x    xxx
+ --x    --x    -xx    -xx    --x    x-x    x-x    --x    xxx    xxx
+  41     42     43     44     45     46     47     48     49     50
+
+  10     10     20     20     15     25     15     20     20     40
+   -      -      -      -      -      -      -      -      -      -
+ ---    -x-    -x-    ---    x--    x--    ---    xx-    ---    xx-
+ --x    --x    -xx    -xx    --x    x-x    x-x    --x    xxx    xxx
+  51     52     53     54     55     56     57     58     59     60
 */
 static const uint16_t left_pr_chords_lat[128] PROGMEM =
 {
@@ -400,100 +465,153 @@ static const uint16_t left_pr_chords_mods[128] PROGMEM =
     [LEFT_PR_43] = CHORD_MODS_ALT_SFT_CTL_GUI
 };
 
-#define LEFT_MI_1  0b0000000
-#define LEFT_MI_2  0b0100000
-#define LEFT_MI_3  0b1100000
-#define LEFT_MI_4  0b1000000
-#define LEFT_MI_5  0b0001000
-#define LEFT_MI_6  0b0011000
-#define LEFT_MI_7  0b0010000
-#define LEFT_MI_8  0b0101000
-#define LEFT_MI_9  0b1010000
-#define LEFT_MI_10 0b1111000
-#define LEFT_MI_11 0b0000001
-#define LEFT_MI_12 0b0100001
-#define LEFT_MI_13 0b1100001
-#define LEFT_MI_14 0b1000001
-#define LEFT_MI_15 0b0001001
-#define LEFT_MI_16 0b0011001
-#define LEFT_MI_17 0b0010001
-#define LEFT_MI_18 0b0101001
-#define LEFT_MI_19 0b1010001
-#define LEFT_MI_20 0b1111001
-#define LEFT_MI_21 0b0000011
-#define LEFT_MI_22 0b0100011
-#define LEFT_MI_23 0b1100011
-#define LEFT_MI_24 0b1000011
-#define LEFT_MI_25 0b0001011
-#define LEFT_MI_26 0b0011011
-#define LEFT_MI_27 0b0010011
-#define LEFT_MI_28 0b0101011
-#define LEFT_MI_29 0b1010011
-#define LEFT_MI_30 0b1111011
-#define LEFT_MI_31 0b0000010
-#define LEFT_MI_32 0b0100010
-#define LEFT_MI_33 0b1100010
-#define LEFT_MI_34 0b1000010
-#define LEFT_MI_35 0b0001010
-#define LEFT_MI_36 0b0011010
-#define LEFT_MI_37 0b0010010
-#define LEFT_MI_38 0b0101010
-#define LEFT_MI_39 0b1010010
-#define LEFT_MI_40 0b1111010
-#define LEFT_MI_41 0b0000110
-#define LEFT_MI_42 0b0100110
-#define LEFT_MI_43 0b1100110
-#define LEFT_MI_44 0b1000110
-#define LEFT_MI_45 0b0001110
-#define LEFT_MI_46 0b0011110
-#define LEFT_MI_47 0b0010110
-#define LEFT_MI_48 0b0101110
-#define LEFT_MI_49 0b1010110
-#define LEFT_MI_50 0b1111110
-#define LEFT_MI_51 0b0000100
-#define LEFT_MI_52 0b0100100
-#define LEFT_MI_53 0b1100100
-#define LEFT_MI_54 0b1000100
-#define LEFT_MI_55 0b0001100
-#define LEFT_MI_56 0b0011100
-#define LEFT_MI_57 0b0010100
-#define LEFT_MI_58 0b0101100
-#define LEFT_MI_59 0b1010100
-#define LEFT_MI_60 0b1111100
+#define LEFT_MI_1    0b0000000
+#define LEFT_MI_2    0b0100000
+#define LEFT_MI_3    0b1100000
+#define LEFT_MI_4    0b1000000
+#define LEFT_MI_5    0b0001000
+#define LEFT_MI_6    0b0011000
+#define LEFT_MI_7    0b0010000
+#define LEFT_MI_8    0b0101000
+#define LEFT_MI_9    0b1010000
+#define LEFT_MI_10   0b1111000
+#define LEFT_MI_10_1 0b1110000
+#define LEFT_MI_10_2 0b1101000
+#define LEFT_MI_10_3 0b1011000
+#define LEFT_MI_10_4 0b0111000
+#define LEFT_MI_11   0b0000001
+#define LEFT_MI_12   0b0100001
+#define LEFT_MI_13   0b1100001
+#define LEFT_MI_14   0b1000001
+#define LEFT_MI_15   0b0001001
+#define LEFT_MI_16   0b0011001
+#define LEFT_MI_17   0b0010001
+#define LEFT_MI_18   0b0101001
+#define LEFT_MI_19   0b1010001
+#define LEFT_MI_20   0b1111001
+#define LEFT_MI_20_1 0b1110001
+#define LEFT_MI_20_2 0b1101001
+#define LEFT_MI_20_3 0b1011001
+#define LEFT_MI_20_4 0b0111001
+#define LEFT_MI_21   0b0000011
+#define LEFT_MI_22   0b0100011
+#define LEFT_MI_23   0b1100011
+#define LEFT_MI_24   0b1000011
+#define LEFT_MI_25   0b0001011
+#define LEFT_MI_26   0b0011011
+#define LEFT_MI_27   0b0010011
+#define LEFT_MI_28   0b0101011
+#define LEFT_MI_29   0b1010011
+#define LEFT_MI_30   0b1111011
+#define LEFT_MI_30_1 0b1110011
+#define LEFT_MI_30_2 0b1101011
+#define LEFT_MI_30_3 0b1011011
+#define LEFT_MI_30_4 0b0111011
+#define LEFT_MI_31   0b0000010
+#define LEFT_MI_32   0b0100010
+#define LEFT_MI_33   0b1100010
+#define LEFT_MI_34   0b1000010
+#define LEFT_MI_35   0b0001010
+#define LEFT_MI_36   0b0011010
+#define LEFT_MI_37   0b0010010
+#define LEFT_MI_38   0b0101010
+#define LEFT_MI_39   0b1010010
+#define LEFT_MI_40   0b1111010
+#define LEFT_MI_40_1 0b1110010
+#define LEFT_MI_40_2 0b1101010
+#define LEFT_MI_40_3 0b1011010
+#define LEFT_MI_40_4 0b0111010
+#define LEFT_MI_41   0b0000110
+#define LEFT_MI_42   0b0100110
+#define LEFT_MI_43   0b1100110
+#define LEFT_MI_44   0b1000110
+#define LEFT_MI_45   0b0001110
+#define LEFT_MI_46   0b0011110
+#define LEFT_MI_47   0b0010110
+#define LEFT_MI_48   0b0101110
+#define LEFT_MI_49   0b1010110
+#define LEFT_MI_50   0b1111110
+#define LEFT_MI_50_1 0b1110110
+#define LEFT_MI_50_2 0b1101110
+#define LEFT_MI_50_3 0b1011110
+#define LEFT_MI_50_4 0b0111110
+#define LEFT_MI_51   0b0000100
+#define LEFT_MI_52   0b0100100
+#define LEFT_MI_53   0b1100100
+#define LEFT_MI_54   0b1000100
+#define LEFT_MI_55   0b0001100
+#define LEFT_MI_56   0b0011100
+#define LEFT_MI_57   0b0010100
+#define LEFT_MI_58   0b0101100
+#define LEFT_MI_59   0b1010100
+#define LEFT_MI_60   0b1111100
+#define LEFT_MI_60_1 0b1110100
+#define LEFT_MI_60_2 0b1101100
+#define LEFT_MI_60_3 0b1011100
+#define LEFT_MI_60_4 0b0111100
 /*
- 035
- 146
- 2
+ Diff       relative difficulty
+ 035 
+ 146        Bit numbers
+ 2    
+  Id        Chord Id
+ Lat Cap    Latin map    Capital latin
+ Sym Mod    Symbol Map   Modifier Map
+ Cyr Cap    Cyrillic Map Capical cyrillic
 
- --- --x --x --- -x- -x- --- -xx --- -xx
- --- --- --x --x --- -x- -x- --- -xx -xx
- -   -   -   -   -   -   -   -   -   -
-  1   2   3   4   5   6   7   8   9   10
+ 2 4 5 7 11 17 31 35 51 57
 
- x-- x-x x-x x-- xx- xx- x-- xxx x-- xxx
- --- --- --x --x --- -x- -x- --- -xx -xx
- -   -   -   -   -   -   -   -   -   -
-  11  12  13  14  15  16  17  18  19  20
+ 12 14 32 34 53 54 55
 
- x-- x-x x-x x-- xx- xx- x-- xxx x-- xxx
- x-- x-- x-x x-x x-- xx- xx- x-- xxx xxx
- -   -   -   -   -   -   -   -   -   -
-  21  22  23  24  25  26  27  28  29  30
+ 3 6 8 9 15 16 18 19 21 25 27 36 37 38 39 41 45 47 56 59
 
- --- --x --x --- -x- -x- --- -xx --- -xx
- x-- x-- x-x x-x x-- xx- xx- x-- xxx xxx
- -   -   -   -   -   -   -   -   -   -
-  31  32  33  34  35  36  37  38  39  40
+ 13 22 24 33 42 44 53 58
 
- --- --x --x --- -x- -x- --- -xx --- -xx
- x-- x-- x-x x-x x-- xx- xx- x-- xxx xxx
- x   x   x   x   x   x   x   x   x   x
-  41  42  43  44  45  46  47  48  49  50
+ 26 28 29 46 49
 
- --- --x --x --- -x- -x- --- -xx --- -xx
- --- --- --x --x --- -x- -x- --- -xx -xx
- x   x   x   x   x   x   x   x   x   x
-  51  52  53  54  55  56  57  58  59  60
+ 23 43 48
+
+ 10 20 40
+
+ 60
+
+ 50
+ 
+  0      10     20     10     10     20     10     20     20     40
+ ---    --x    --x    ---    -x-    -x-    ---    -xx    ---    -xx
+ ---    ---    --x    --x    ---    -x-    -x-    ---    -xx    -xx
+ -      -      -      -      -      -      -      -      -      -
+  1      2      3      4      5      6      7      8      9      10
+
+  10     15     25     15     20     20     10     20     20     40
+ x--    x-x    x-x    x--    xx-    xx-    x--    xxx    x--    xxx
+ ---    ---    --x    --x    ---    -x-    -x-    ---    -xx    -xx
+ -      -      -      -      -      -      -      -      -      -
+  11     12     13     14     15     16     17     18     19     20
+
+  20     25     35     25     20     30     20     30     30     50
+ x--    x-x    x-x    x--    xx-    xx-    x--    xxx    x--    xxx
+ x--    x--    x-x    x-x    x--    xx-    xx-    x--    xxx    xxx
+ -      -      -      -      -      -      -      -      -      -
+  21     22     23     24     25     26     27     28     29     30
+
+  10     15     25     15     10     20     20     20     20     40
+ ---    --x    --x    ---    -x-    -x-    ---    -xx    ---    -xx
+ x--    x--    x-x    x-x    x--    xx-    xx-    x--    xxx    xxx
+ -      -      -      -      -      -      -      -      -      -
+  31     32     33     34     35     36     37     38     39     40
+
+  20     25     35     25     20     30     20     35     30     55
+ ---    --x    --x    ---    -x-    -x-    ---    -xx    ---    -xx
+ x--    x--    x-x    x-x    x--    xx-    xx-    x--    xxx    xxx
+ x      x      x      x      x      x      x      x      x      x
+  41     42     43     44     45     46     47     48     49     50
+
+  10     15     25     15     15     20     10     25     20     45
+ ---    --x    --x    ---    -x-    -x-    ---    -xx    ---    -xx
+ ---    ---    --x    --x    ---    -x-    -x-    ---    -xx    -xx
+ x      x      x      x      x      x      x      x      x      x
+  51     52     53     54     55     56     57     58     59     60
 */
 static const uint16_t left_mi_chords_lat[128] PROGMEM =
 {
@@ -655,100 +773,136 @@ static const uint16_t right_thumb_chords[32] PROGMEM =
     [RIGHT_THUMB_7] = CHORD_THUMB_MODS
 };
 
-#define RIGHT_MI_1  0b0000000
-#define RIGHT_MI_2  0b0000010
-#define RIGHT_MI_3  0b0000011
-#define RIGHT_MI_4  0b0000001
-#define RIGHT_MI_5  0b0001000
-#define RIGHT_MI_6  0b0001100
-#define RIGHT_MI_7  0b0000100
-#define RIGHT_MI_8  0b0001010
-#define RIGHT_MI_9  0b0000101
-#define RIGHT_MI_10 0b0001111
-#define RIGHT_MI_11 0b1000000
-#define RIGHT_MI_12 0b1000010
-#define RIGHT_MI_13 0b1000011
-#define RIGHT_MI_14 0b1000001
-#define RIGHT_MI_15 0b1001000
-#define RIGHT_MI_16 0b1001100
-#define RIGHT_MI_17 0b1000100
-#define RIGHT_MI_18 0b1001010
-#define RIGHT_MI_19 0b1000101
-#define RIGHT_MI_20 0b1001111
-#define RIGHT_MI_21 0b1100000
-#define RIGHT_MI_22 0b1100010
-#define RIGHT_MI_23 0b1100011
-#define RIGHT_MI_24 0b1100001
-#define RIGHT_MI_25 0b1101000
-#define RIGHT_MI_26 0b1101100
-#define RIGHT_MI_27 0b1100100
-#define RIGHT_MI_28 0b1101010
-#define RIGHT_MI_29 0b1100101
-#define RIGHT_MI_30 0b1101111
-#define RIGHT_MI_31 0b0100000
-#define RIGHT_MI_32 0b0100010
-#define RIGHT_MI_33 0b0100011
-#define RIGHT_MI_34 0b0100001
-#define RIGHT_MI_35 0b0101000
-#define RIGHT_MI_36 0b0101100
-#define RIGHT_MI_37 0b0100100
-#define RIGHT_MI_38 0b0101010
-#define RIGHT_MI_39 0b0100101
-#define RIGHT_MI_40 0b0101111
-#define RIGHT_MI_41 0b0110000
-#define RIGHT_MI_42 0b0110010
-#define RIGHT_MI_43 0b0110011
-#define RIGHT_MI_44 0b0110001
-#define RIGHT_MI_45 0b0111000
-#define RIGHT_MI_46 0b0111100
-#define RIGHT_MI_47 0b0110100
-#define RIGHT_MI_48 0b0111010
-#define RIGHT_MI_49 0b0110101
-#define RIGHT_MI_50 0b0111111
-#define RIGHT_MI_51 0b0010000
-#define RIGHT_MI_52 0b0010010
-#define RIGHT_MI_53 0b0010011
-#define RIGHT_MI_54 0b0010001
-#define RIGHT_MI_55 0b0011000
-#define RIGHT_MI_56 0b0011100
-#define RIGHT_MI_57 0b0010100
-#define RIGHT_MI_58 0b0011010
-#define RIGHT_MI_59 0b0010101
-#define RIGHT_MI_60 0b0011111
+#define RIGHT_MI_1    0b0000000
+#define RIGHT_MI_2    0b0000010
+#define RIGHT_MI_3    0b0000011
+#define RIGHT_MI_4    0b0000001
+#define RIGHT_MI_5    0b0001000
+#define RIGHT_MI_6    0b0001100
+#define RIGHT_MI_7    0b0000100
+#define RIGHT_MI_8    0b0001010
+#define RIGHT_MI_9    0b0000101
+#define RIGHT_MI_10   0b0001111
+#define RIGHT_MI_10_1 0b0001110
+#define RIGHT_MI_10_2 0b0001101
+#define RIGHT_MI_10_3 0b0001011
+#define RIGHT_MI_10_4 0b0000111
+#define RIGHT_MI_11   0b1000000
+#define RIGHT_MI_12   0b1000010
+#define RIGHT_MI_13   0b1000011
+#define RIGHT_MI_14   0b1000001
+#define RIGHT_MI_15   0b1001000
+#define RIGHT_MI_16   0b1001100
+#define RIGHT_MI_17   0b1000100
+#define RIGHT_MI_18   0b1001010
+#define RIGHT_MI_19   0b1000101
+#define RIGHT_MI_20   0b1001111
+#define RIGHT_MI_20_1 0b1001110
+#define RIGHT_MI_20_2 0b1001101
+#define RIGHT_MI_20_3 0b1001011
+#define RIGHT_MI_20_4 0b1000111
+#define RIGHT_MI_21   0b1100000
+#define RIGHT_MI_22   0b1100010
+#define RIGHT_MI_23   0b1100011
+#define RIGHT_MI_24   0b1100001
+#define RIGHT_MI_25   0b1101000
+#define RIGHT_MI_26   0b1101100
+#define RIGHT_MI_27   0b1100100
+#define RIGHT_MI_28   0b1101010
+#define RIGHT_MI_29   0b1100101
+#define RIGHT_MI_30   0b1101111
+#define RIGHT_MI_30_1 0b1101110
+#define RIGHT_MI_30_2 0b1101101
+#define RIGHT_MI_30_3 0b1101011
+#define RIGHT_MI_30_4 0b1100111
+#define RIGHT_MI_31   0b0100000
+#define RIGHT_MI_32   0b0100010
+#define RIGHT_MI_33   0b0100011
+#define RIGHT_MI_34   0b0100001
+#define RIGHT_MI_35   0b0101000
+#define RIGHT_MI_36   0b0101100
+#define RIGHT_MI_37   0b0100100
+#define RIGHT_MI_38   0b0101010
+#define RIGHT_MI_39   0b0100101
+#define RIGHT_MI_40   0b0101111
+#define RIGHT_MI_40_1 0b0101110
+#define RIGHT_MI_40_2 0b0101101
+#define RIGHT_MI_40_3 0b0101011
+#define RIGHT_MI_40_4 0b0100111
+#define RIGHT_MI_41   0b0110000
+#define RIGHT_MI_42   0b0110010
+#define RIGHT_MI_43   0b0110011
+#define RIGHT_MI_44   0b0110001
+#define RIGHT_MI_45   0b0111000
+#define RIGHT_MI_46   0b0111100
+#define RIGHT_MI_47   0b0110100
+#define RIGHT_MI_48   0b0111010
+#define RIGHT_MI_49   0b0110101
+#define RIGHT_MI_50   0b0111111
+#define RIGHT_MI_50_1 0b0111110
+#define RIGHT_MI_50_2 0b0111101
+#define RIGHT_MI_50_3 0b0111011
+#define RIGHT_MI_50_4 0b0110111
+#define RIGHT_MI_51   0b0010000
+#define RIGHT_MI_52   0b0010010
+#define RIGHT_MI_53   0b0010011
+#define RIGHT_MI_54   0b0010001
+#define RIGHT_MI_55   0b0011000
+#define RIGHT_MI_56   0b0011100
+#define RIGHT_MI_57   0b0010100
+#define RIGHT_MI_58   0b0011010
+#define RIGHT_MI_59   0b0010101
+#define RIGHT_MI_60   0b0011111
+#define RIGHT_MI_60_1 0b0011110
+#define RIGHT_MI_60_2 0b0011101
+#define RIGHT_MI_60_3 0b0011011
+#define RIGHT_MI_60_4 0b0010111
 /*
+ Diff       relative difficulty
  136
- 025
-   4
+ 025        Bit numbers
+   4   
+  Id        Chord Id
+ Lat Cap    Latin map    Capital latin
+ Sym Mod    Symbol Map   Modifier Map
+ Cyr Cap    Cyrillic Map Capical cyrillic
 
- --- x-- x-- --- -x- -x- --- xx- --- xx-
- --- --- x-- x-- --- -x- -x- --- xx- xx-
-   -   -   -   -   -   -   -   -   -   -
-  1   2   3   4   5   6   7   8    9  10
+ 
+  0      10     20     10     10     20     10     20     20     40
+ ---    x--    x--    ---    -x-    -x-    ---    xx-    ---    xx-
+ ---    ---    x--    x--    ---    -x-    -x-    ---    xx-    xx-
+   -      -      -      -      -      -      -      -      -      -
+  1      2      3      4      5      6      7      8       9     10
 
- --x x-x x-x --x -xx -xx --x xxx --x xxx
- --- --- x-- x-- --- -x- -x- --- xx- xx-
-   -   -   -   -   -   -   -   -   -   -
-  11  12  13  14  15  16  17  18  19  20
+  10     15     25     15     20     20     10     20     20     40
+ --x    x-x    x-x    --x    -xx    -xx    --x    xxx    --x    xxx
+ ---    ---    x--    x--    ---    -x-    -x-    ---    xx-    xx-
+   -      -      -      -      -      -      -      -      -      -
+  11     12     13     14     15     16     17     18     19     20
 
- --x x-x x-x --x -xx -xx --x xxx --x xxx
- --x --x x-x x-x --x -xx -xx --x xxx xxx
-   -   -   -   -   -   -   -   -   -   -
-  21  22  23  24  25  26  27  28  29  30
+  20     25     35     25     20     30     20     30     30     50
+ --x    x-x    x-x    --x    -xx    -xx    --x    xxx    --x    xxx
+ --x    --x    x-x    x-x    --x    -xx    -xx    --x    xxx    xxx
+   -      -      -      -      -      -      -      -      -      -
+  21     22     23     24     25     26     27     28     29     30
 
- --- x-- x-- --- -x- -x- --- xx- --- xx-
- --x --x x-x x-x --x -xx -xx --x xxx xxx
-   -   -   -   -   -   -   -   -   -   -
-  31  32  33  34  35  36  37  38  39  40
+  10     15     25     15     10     20     20     20     20     40
+ ---    x--    x--    ---    -x-    -x-    ---    xx-    ---    xx-
+ --x    --x    x-x    x-x    --x    -xx    -xx    --x    xxx    xxx
+   -      -      -      -      -      -      -      -      -      -
+  31     32     33     34     35     36     37     38     39     40
 
- --- x-- x-- --- -x- -x- --- xx- --- xx-
- --x --x x-x x-x --x -xx -xx --x xxx xxx
-   x   x   x   x   x   x   x   x   x   x
-  41  42  43  44  45  46  47  48  49  50
+  20     25     35     25     20     30     20     35     35     55
+ ---    x--    x--    ---    -x-    -x-    ---    xx-    ---    xx-
+ --x    --x    x-x    x-x    --x    -xx    -xx    --x    xxx    xxx
+   x      x      x      x      x      x      x      x      x      x
+  41     42     43     44     45     46     47     48     49     50
 
- --- x-- x-- --- -x- -x- --- xx- --- xx-
- --- --- x-- x-- --- -x- -x- --- xx- xx-
-   x   x   x   x   x   x   x   x   x   x
-  51  52  53  54  55  56  57  58  59  60
+  10     15     25     15     15     20     10     25     20     45
+ ---    x--    x--    ---    -x-    -x-    ---    xx-    ---    xx-
+ ---    ---    x--    x--    ---    -x-    -x-    ---    xx-    xx-
+   x      x      x      x      x      x      x      x      x      x
+  51     52     53     54     55     56     57     58     59     60
 */
 static const uint16_t right_mi_chords_lat[128] PROGMEM =
 {
@@ -854,100 +1008,155 @@ static const uint16_t right_mi_chords_lat_caps[128] PROGMEM =
     [RIGHT_MI_48] = CHORD_LAT_CAPS_SPC
 };
 
-#define RIGHT_PR_1  0b0000000
-#define RIGHT_PR_2  0b0010000
-#define RIGHT_PR_3  0b0011000
-#define RIGHT_PR_4  0b0001000
-#define RIGHT_PR_5  0b1000000
-#define RIGHT_PR_6  0b1100000
-#define RIGHT_PR_7  0b0100000
-#define RIGHT_PR_8  0b1010000
-#define RIGHT_PR_9  0b0101000
-#define RIGHT_PR_10 0b1111000
-#define RIGHT_PR_11 0b0000100
-#define RIGHT_PR_12 0b0010100
-#define RIGHT_PR_13 0b0011100
-#define RIGHT_PR_14 0b0001100
-#define RIGHT_PR_15 0b1000100
-#define RIGHT_PR_16 0b1100100
-#define RIGHT_PR_17 0b0100100
-#define RIGHT_PR_18 0b1010100
-#define RIGHT_PR_19 0b0101100
-#define RIGHT_PR_20 0b1111100
-#define RIGHT_PR_21 0b0000110
-#define RIGHT_PR_22 0b0010110
-#define RIGHT_PR_23 0b0011110
-#define RIGHT_PR_24 0b0001110
-#define RIGHT_PR_25 0b1000110
-#define RIGHT_PR_26 0b1100110
-#define RIGHT_PR_27 0b0100110
-#define RIGHT_PR_28 0b1010110
-#define RIGHT_PR_29 0b0101110
-#define RIGHT_PR_30 0b1111110
-#define RIGHT_PR_31 0b0000010
-#define RIGHT_PR_32 0b0010010
-#define RIGHT_PR_33 0b0011010
-#define RIGHT_PR_34 0b0001010
-#define RIGHT_PR_35 0b1000010
-#define RIGHT_PR_36 0b1100010
-#define RIGHT_PR_37 0b0100010
-#define RIGHT_PR_38 0b1010010
-#define RIGHT_PR_39 0b0101010
-#define RIGHT_PR_40 0b1111010
-#define RIGHT_PR_41 0b0000011
-#define RIGHT_PR_42 0b0010011
-#define RIGHT_PR_43 0b0011011
-#define RIGHT_PR_44 0b0001011
-#define RIGHT_PR_45 0b1000011
-#define RIGHT_PR_46 0b1100011
-#define RIGHT_PR_47 0b0100011
-#define RIGHT_PR_48 0b1010011
-#define RIGHT_PR_49 0b0101011
-#define RIGHT_PR_50 0b1111011
-#define RIGHT_PR_51 0b0000001
-#define RIGHT_PR_52 0b0010001
-#define RIGHT_PR_53 0b0011001
-#define RIGHT_PR_54 0b0001001
-#define RIGHT_PR_55 0b1000001
-#define RIGHT_PR_56 0b1100001
-#define RIGHT_PR_57 0b0100001
-#define RIGHT_PR_58 0b1010001
-#define RIGHT_PR_59 0b0101001
-#define RIGHT_PR_60 0b1111001
+#define RIGHT_PR_1    0b0000000
+#define RIGHT_PR_2    0b0010000
+#define RIGHT_PR_3    0b0011000
+#define RIGHT_PR_4    0b0001000
+#define RIGHT_PR_5    0b1000000
+#define RIGHT_PR_6    0b1100000
+#define RIGHT_PR_7    0b0100000
+#define RIGHT_PR_8    0b1010000
+#define RIGHT_PR_9    0b0101000
+#define RIGHT_PR_10   0b1111000
+#define RIGHT_PR_10_1 0b1110000
+#define RIGHT_PR_10_2 0b1101000
+#define RIGHT_PR_10_3 0b1011000
+#define RIGHT_PR_10_4 0b0111000
+#define RIGHT_PR_11   0b0000100
+#define RIGHT_PR_12   0b0010100
+#define RIGHT_PR_13   0b0011100
+#define RIGHT_PR_14   0b0001100
+#define RIGHT_PR_15   0b1000100
+#define RIGHT_PR_16   0b1100100
+#define RIGHT_PR_17   0b0100100
+#define RIGHT_PR_18   0b1010100
+#define RIGHT_PR_19   0b0101100
+#define RIGHT_PR_20   0b1111100
+#define RIGHT_PR_20_1 0b1110100
+#define RIGHT_PR_20_2 0b1101100
+#define RIGHT_PR_20_3 0b1011100
+#define RIGHT_PR_20_4 0b0111100
+#define RIGHT_PR_21   0b0000110
+#define RIGHT_PR_22   0b0010110
+#define RIGHT_PR_23   0b0011110
+#define RIGHT_PR_24   0b0001110
+#define RIGHT_PR_25   0b1000110
+#define RIGHT_PR_26   0b1100110
+#define RIGHT_PR_27   0b0100110
+#define RIGHT_PR_28   0b1010110
+#define RIGHT_PR_29   0b0101110
+#define RIGHT_PR_30   0b1111110
+#define RIGHT_PR_30_1 0b1110110
+#define RIGHT_PR_30_2 0b1101110
+#define RIGHT_PR_30_3 0b1011110
+#define RIGHT_PR_30_4 0b0111110
+#define RIGHT_PR_31   0b0000010
+#define RIGHT_PR_32   0b0010010
+#define RIGHT_PR_33   0b0011010
+#define RIGHT_PR_34   0b0001010
+#define RIGHT_PR_35   0b1000010
+#define RIGHT_PR_36   0b1100010
+#define RIGHT_PR_37   0b0100010
+#define RIGHT_PR_38   0b1010010
+#define RIGHT_PR_39   0b0101010
+#define RIGHT_PR_40   0b1111010
+#define RIGHT_PR_40_1 0b1110010
+#define RIGHT_PR_40_2 0b1101010
+#define RIGHT_PR_40_3 0b1011010
+#define RIGHT_PR_40_4 0b0111010
+#define RIGHT_PR_41   0b0000011
+#define RIGHT_PR_42   0b0010011
+#define RIGHT_PR_43   0b0011011
+#define RIGHT_PR_44   0b0001011
+#define RIGHT_PR_45   0b1000011
+#define RIGHT_PR_46   0b1100011
+#define RIGHT_PR_47   0b0100011
+#define RIGHT_PR_48   0b1010011
+#define RIGHT_PR_49   0b0101011
+#define RIGHT_PR_50   0b1111011
+#define RIGHT_PR_50_1 0b1110011
+#define RIGHT_PR_50_2 0b1101011
+#define RIGHT_PR_50_3 0b1011011
+#define RIGHT_PR_50_4 0b0111011
+#define RIGHT_PR_51   0b0000001
+#define RIGHT_PR_52   0b0010001
+#define RIGHT_PR_53   0b0011001
+#define RIGHT_PR_54   0b0001001
+#define RIGHT_PR_55   0b1000001
+#define RIGHT_PR_56   0b1100001
+#define RIGHT_PR_57   0b0100001
+#define RIGHT_PR_58   0b1010001
+#define RIGHT_PR_59   0b0101001
+#define RIGHT_PR_60   0b1111001
+#define RIGHT_PR_60_1 0b1110001
+#define RIGHT_PR_60_2 0b1101001
+#define RIGHT_PR_60_3 0b1011001
+#define RIGHT_PR_60_4 0b0111001
 /*
+ Diff       relative difficulty
  2
- 146
+ 146        Bit numbers
  035
+  Id        Chord Id
+ Lat Cap    Latin map    Capital latin
+ Sym Mod    Symbol Map   Modifier Map
+ Cyr Cap    Cyrillic Map Capical cyrillic
 
- -   -   -   -   -   -   -   -   -   -
- --- -x- -x- --- --x --x --- -xx --- -xx
- --- --- -x- -x- --- --x --x --- -xx -xx
-  1   2   3   4   5   6   7   8   9   10
+ 2 4 5 7 11 12 31 34 51 52
 
- x   x   x   x   x   x   x   x   x   x
- --- -x- -x- --- --x --x --- -xx --- -xx
- --- --- -x- -x- --- --x --x --- -xx -xx
-  11  12  13  14  15  16  17  18  19  20
+ 14 15 17 35 37 55 57
 
- x   x   x   x   x   x   x   x   x   x
- x-- xx- xx- x-- x-x x-x x-- xxx x-- xxx
- --- --- -x- -x- --- --x --x --- -xx -xx
-  21  22  23  24  25  26  27  28  29  30
+ 3 6 8 9 13 18 21 22 24 32 33 38 39 41 42 44 53 54 58 59
 
- -   -   -   -   -   -   -   -   -   -
- x-- xx- xx- x-- x-x x-x x-- xxx x-- xxx
- --- --- -x- -x- --- --x --x --- -xx -xx
-  31  32  33  34  35  36  37  38  39  40
+ 16 19 25 27 36 45 47 56
 
- -   -   -   -   -   -   -   -   -   -
- x-- xx- xx- x-- x-x x-x x-- xxx x-- xxx
- x-- x-- xx- xx- x-- x-x x-x x-- xxx xxx
-  41  42  43  44  45  46  47  48  49  50
+ 23 28 43 48 49
 
- -   -   -   -   -   -   -   -   -   -
- --- -x- -x- --- --x --x --- -xx --- -xx
- x-- x-- xx- xx- x-- x-x x-x x-- xxx xxx
-  51  52  53  54  55  56  57  58  59  60
+ 26 29 46
+
+ 10 40 60
+
+ 20
+
+ 50
+
+ 30
+ 
+  0      10     20     10     10     20     10     20     20     40
+ -      -      -      -      -      -      -      -      -      -
+ ---    -x-    -x-    ---    --x    --x    ---    -xx    ---    -xx
+ ---    ---    -x-    -x-    ---    --x    --x    ---    -xx    -xx
+  1      2      3      4      5      6      7      8      9      10
+
+  10     10     20     15     15     25     15     20     25     45
+ x      x      x      x      x      x      x      x      x      x
+ ---    -x-    -x-    ---    --x    --x    ---    -xx    ---    -xx
+ ---    ---    -x-    -x-    ---    --x    --x    ---    -xx    -xx
+  11     12     13     14     15     16     17     18     19     20
+
+  20     20     30     20     25     35     25     30     35     55
+ x      x      x      x      x      x      x      x      x      x
+ x--    xx-    xx-    x--    x-x    x-x    x--    xxx    x--    xxx
+ ---    ---    -x-    -x-    ---    --x    --x    ---    -xx    -xx
+  21     22     23     24     25     26     27     28     29     30
+
+  10     20     20     10     15     25     15     20     20     40
+ -      -      -      -      -      -      -      -      -      -
+ x--    xx-    xx-    x--    x-x    x-x    x--    xxx    x--    xxx
+ ---    ---    -x-    -x-    ---    --x    --x    ---    -xx    -xx
+  31     32     33     34     35     36     37     38     39     40
+
+  20     20     30     20     25     35     25     30     30     50
+ -      -      -      -      -      -      -      -      -      -
+ x--    xx-    xx-    x--    x-x    x-x    x--    xxx    x--    xxx
+ x--    x--    xx-    xx-    x--    x-x    x-x    x--    xxx    xxx
+  41     42     43     44     45     46     47     48     49     50
+
+  10     10     20     20     15     25     15     20     20     40
+ -      -      -      -      -      -      -      -      -      -
+ ---    -x-    -x-    ---    --x    --x    ---    -xx    ---    -xx
+ x--    x--    xx-    xx-    x--    x-x    x-x    x--    xxx    xxx
+  51     52     53     54     55     56     57     58     59     60
 */
 static const uint16_t right_pr_chords_lat[128] PROGMEM =
 {
@@ -1181,7 +1390,7 @@ static const char* chords[] =
     SS_TAP(X_HOME), SS_TAP(X_END), SS_TAP(X_UP),
     SS_TAP(X_DOWN), SS_TAP(X_LEFT), SS_TAP(X_RIGHT), SS_TAP(X_BSPACE),
     SS_TAP(X_DELETE), SS_TAP(X_INSERT), SS_TAP(X_PGUP), SS_TAP(X_PGDOWN),
-    SS_TAP(X_ESCAPE), SS_LSFT(X_CAPSLOCK),
+    SS_TAP(X_ESCAPE), SS_LSFT(SS_TAP(X_CAPSLOCK)), SS_TAP(X_TAB),
     "а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и", "й", "к", "л", "м", "н",
     "о", "п", "р", "с", "т", "у", "ф", "х", "ц", "ч", "ш", "щ", "ъ", "ы", "ь",
     "э", "ю", "я", "ст", "то", "но", "на", "ен", "по", "ов",
