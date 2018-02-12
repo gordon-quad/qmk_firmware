@@ -193,32 +193,32 @@
    4
  025
  136
- 
+
    -   -   -   -   -   -   -   -   -   -
  --- -x- -x- --- x-- x-- --- xx- --- xx-
  --- --- -x- -x- --- x-- x-- --- xx- xx-
   1   2   3   4   5   6   7   8   9   10
-  
+
    x   x   x   x   x   x   x   x   x   x
  --- -x- -x- --- x-- x-- --- xx- --- xx-
  --- --- -x- -x- --- x-- x-- --- xx- xx-
   11  12  13  14  15  16  17  18  19  20
-  
+
    x   x   x   x   x   x   x   x   x   x
  --x -xx -xx --x x-x x-x --x xxx --x xxx
  --- --- -x- -x- --- x-- x-- --- xx- xx-
   21  22  23  24  25  26  27  28  29  30
-  
+
    -   -   -   -   -   -   -   -   -   -
  --x -xx -xx --x x-x x-x --x xxx --x xxx
  --- --- -x- -x- --- x-- x-- --- xx- xx-
   31  32  33  34  35  36  37  38  39  40
-  
+
    -   -   -   -   -   -   -   -   -   -
  --x -xx -xx --x x-x x-x --x xxx --x xxx
  --x --x -xx -xx --x x-x x-x --x xxx xxx
   41  42  43  44  45  46  47  48  49  50
-  
+
    -   -   -   -   -   -   -   -   -   -
  --- -x- -x- --- x-- x-- --- xx- --- xx-
  --x --x -xx -xx --x x-x x-x --x xxx xxx
@@ -460,34 +460,34 @@ static const uint16_t left_pr_chords_mods[128] PROGMEM =
 #define LEFT_MI_58 0b0101100
 #define LEFT_MI_59 0b1010100
 #define LEFT_MI_60 0b1111100
-/* 
+/*
  035
  146
  2
 
  --- --x --x --- -x- -x- --- -xx --- -xx
  --- --- --x --x --- -x- -x- --- -xx -xx
- -   -   -   -   -   -   -   -   -   -  
+ -   -   -   -   -   -   -   -   -   -
   1   2   3   4   5   6   7   8   9   10
 
  x-- x-x x-x x-- xx- xx- x-- xxx x-- xxx
  --- --- --x --x --- -x- -x- --- -xx -xx
- -   -   -   -   -   -   -   -   -   -  
+ -   -   -   -   -   -   -   -   -   -
   11  12  13  14  15  16  17  18  19  20
 
  x-- x-x x-x x-- xx- xx- x-- xxx x-- xxx
  x-- x-- x-x x-x x-- xx- xx- x-- xxx xxx
- -   -   -   -   -   -   -   -   -   -  
+ -   -   -   -   -   -   -   -   -   -
   21  22  23  24  25  26  27  28  29  30
 
  --- --x --x --- -x- -x- --- -xx --- -xx
  x-- x-- x-x x-x x-- xx- xx- x-- xxx xxx
- -   -   -   -   -   -   -   -   -   -  
+ -   -   -   -   -   -   -   -   -   -
   31  32  33  34  35  36  37  38  39  40
 
  --- --x --x --- -x- -x- --- -xx --- -xx
  x-- x-- x-x x-x x-- xx- xx- x-- xxx xxx
- x   x   x   x   x   x   x   x   x   x  
+ x   x   x   x   x   x   x   x   x   x
   41  42  43  44  45  46  47  48  49  50
 
  --- --x --x --- -x- -x- --- -xx --- -xx
@@ -611,7 +611,7 @@ static const uint16_t left_mi_chords_lat_caps[128] PROGMEM =
 /*
   13
  024
-  
+
   --  -x  --  -x  --  x-  --  --  --
  --- --x --x -xx -xx -x- -x- xx- x--
   1   2   3   4   5   6   7   8   9
@@ -639,7 +639,7 @@ static const uint16_t left_thumb_chords[32] PROGMEM =
 /*
  13
  024
-  
+
  --  x-  --  x-  --  -x  --  --  --
  --- x-- x-- xx- xx- -x- -x- -xx --x
  1    2   3   4   5   6   7   8   9
@@ -715,7 +715,7 @@ static const uint16_t right_thumb_chords[32] PROGMEM =
 #define RIGHT_MI_58 0b0011010
 #define RIGHT_MI_59 0b0010101
 #define RIGHT_MI_60 0b0011111
-/* 
+/*
  136
  025
    4
@@ -918,7 +918,7 @@ static const uint16_t right_mi_chords_lat_caps[128] PROGMEM =
  2
  146
  035
- 
+
  -   -   -   -   -   -   -   -   -   -
  --- -x- -x- --- --x --x --- -xx --- -xx
  --- --- -x- -x- --- --x --x --- -xx -xx
@@ -1154,7 +1154,15 @@ static const uint16_t *right_mi_map[] =
     [MAP_LAT_CAPS] = right_mi_chords_lat_caps,
     [MAP_SYMB] =     right_mi_chords_lat
 };
-
+// Freqs:
+// e     t    a    o    i    n    s    r    h    l    d    c    u    m    f    p    g    w    y    b    v    k    x    j    q    z
+// 12.49 9.28 8.64 7.64 7.57 7.23 6.51 6.28 5.05 4.07 3.82 3.34 2.73 2.51 2.40 2.14 1.87 1.68 1.66 1.48 1.05 0.54 0.23 0.16 0.12 0.09
+// th   he   in   er   an   re   on   at   en   nd   ti   es   or   te   of   ed   is   it   al   ar   st   to   nt   ng   se   ha
+// 3.56 3.07 2.43 2.05 1.99 1.85 1.76 1.49 1.45 1.35 1.34 1.34 1.28 1.20 1.17 1.17 1.13 1.12 1.09 1.07 1.05 1.04 1.04 0.95 0.93 0.93
+// о     е    а    н    и    т    с    л    в    р    к    д    м    у    п    я    ь    ы    г    б    ч    з    ж    й    ш    х    ю    э    ц    щ    ф    ъ
+// 11.34 8.93 8.23 6.71 6.48 6.17 5.22 4.95 4.47 4.17 3.35 2.97 2.93 2.86 2.39 2.17 2.09 1.90 1.81 1.77 1.67 1.65 1.14 1.09 0.89 0.79 0.66 0.33 0.29 0.29 0.10 0.02
+// ст   то   но   на  (ен   ни   по   ко   ра) (ов   не   ро) (пр   го   ал   ре   ос) (ли   ка   во   та   ер) (от   ва   ор   ет)
+// 1.74 1.64 1.56 1.42 1.27 1.25 1.25 1.23 1.22 1.18 1.15 1.14 1.02 0.98 0.97 0.96 0.93 0.90 0.89 0.88 0.88 0.85 0.84 0.83 0.81 0.81
 static const char* chords[] =
 {
     "", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
@@ -1164,6 +1172,21 @@ static const char* chords[] =
     "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
     "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
     "An", "At", "En", "Er", "He", "In", "Nd", "On", "Or", "Re", "Te", "Th", "Ti",
+    "1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
+    "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+",
+    "[", "]", "{", "}", ";", ":", "\\", "|", "<", ">", "/", "`", "~",
+    SS_TAP(X_F1), SS_TAP(X_F2), SS_TAP(X_F3), SS_TAP(X_F4), SS_TAP(X_F5),
+    SS_TAP(X_F6), SS_TAP(X_F7), SS_TAP(X_F8), SS_TAP(X_F9), SS_TAP(X_F10),
+    SS_TAP(X_F11), SS_TAP(X_F12),
+    SS_TAP(X_HOME), SS_TAP(X_END), SS_TAP(X_UP),
+    SS_TAP(X_DOWN), SS_TAP(X_LEFT), SS_TAP(X_RIGHT), SS_TAP(X_BSPACE),
+    SS_TAP(X_DELETE), SS_TAP(X_INSERT), SS_TAP(X_PGUP), SS_TAP(X_PGDOWN),
+    SS_TAP(X_ESCAPE), SS_LSFT(X_CAPSLOCK),
+    "а", "б", "в", "г", "д", "е", "ё", "ж", "з", "и", "й", "к", "л", "м", "н",
+    "о", "п", "р", "с", "т", "у", "ф", "х", "ц", "ч", "ш", "щ", "ъ", "ы", "ь",
+    "э", "ю", "я", "ст", "то", "но", "на", "ен", "по", "ов",
+    // optional
+    "ни", "ко", "ра", "не", "ро", "пр"
 };
 
 #endif//_CHORDS_H_
