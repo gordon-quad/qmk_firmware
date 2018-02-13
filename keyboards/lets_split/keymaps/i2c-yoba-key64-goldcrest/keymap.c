@@ -558,9 +558,12 @@ void process_pair(uint16_t idx)
 
 uint8_t thumb_mode_pr(uint16_t thumb)
 {
-    if ((thumb == CHORD_THUMB_CAP1) || (thumb == CHORD_THUMB_CAP12))
+    if ((thumb == CHORD_THUMB_CAP1) ||
+        (thumb == CHORD_THUMB_CAP12))
         return MAP_LAT_CAPS;
-    if ((thumb == CHORD_THUMB_MODS) || (thumb == CHORD_THUMB_SYMB_MODS))
+    if ((thumb == CHORD_THUMB_MODS) ||
+        (thumb == CHORD_THUMB_SYMB_MODS) ||
+        (thumb == CHORD_THUMB_NAV))
         return MAP_MODS;
     if (thumb == CHORD_THUMB_SYMB)
         return MAP_SYMB;
@@ -569,24 +572,28 @@ uint8_t thumb_mode_pr(uint16_t thumb)
 
 uint8_t thumb_mode_mi(uint16_t thumb)
 {
-    if ((thumb == CHORD_THUMB_CAP2) || (thumb == CHORD_THUMB_CAP12))
+    if ((thumb == CHORD_THUMB_CAP2) ||
+        (thumb == CHORD_THUMB_CAP12))
         return MAP_LAT_CAPS;
-    if ((thumb == CHORD_THUMB_SYMB) || (thumb == CHORD_THUMB_SYMB_MODS))
+    if ((thumb == CHORD_THUMB_SYMB) ||
+        (thumb == CHORD_THUMB_SYMB_MODS))
         return MAP_SYMB;
+    if (thumb == CHORD_THUMB_NAV)
+        return MAP_NAV;
     return MAP_LAT;
 }
 
 const macro_t *process_chord(uint64_t chord)
 {
-    uint8_t left_pr_idx = ((chord & (0x7fULL << 0)) >> 0);
-    uint8_t left_mi_idx = ((chord & (0x7fULL << 7)) >> 7);
-    uint8_t left_thumb_idx = ((chord & (0x1fULL << 14)) >> 14);
-    uint8_t right_thumb_idx = ((chord & (0x1fULL << 19)) >> 19);
-    uint8_t right_mi_idx = ((chord & (0x7fULL << 24)) >> 24);
-    uint8_t right_pr_idx = ((chord & (0x7fULL << 31)) >> 31);
+    uint8_t left_pr_idx = pgm_read_byte(&(left_pr_chord_to_id[((chord & (0x7fULL << 0)) >> 0)]));
+    uint8_t left_mi_idx = pgm_read_byte(&(left_mi_chord_to_id[((chord & (0x7fULL << 7)) >> 7)]));
+    uint8_t left_thumb_idx = pgm_read_byte(&(left_thumb_chord_to_id[((chord & (0x1fULL << 14)) >> 14)]));
+    uint8_t right_thumb_idx = pgm_read_byte(&(right_thumb_chord_to_id[((chord & (0x1fULL << 19)) >> 19)]));
+    uint8_t right_mi_idx = pgm_read_byte(&(right_mi_chord_to_id[((chord & (0x7fULL << 24)) >> 24)]));
+    uint8_t right_pr_idx = pgm_read_byte(&(right_pr_chord_to_id[((chord & (0x7fULL << 31)) >> 31)]));
 
-    uint16_t left_thumb  = pgm_read_word(&(left_thumb_chords[left_thumb_idx]));
-    uint16_t right_thumb = pgm_read_word(&(right_thumb_chords[right_thumb_idx]));
+    uint16_t left_thumb  = pgm_read_word(&(thumb_chords[left_thumb_idx]));
+    uint16_t right_thumb = pgm_read_word(&(thumb_chords[right_thumb_idx]));
     
     uint8_t left_pr_map_idx = thumb_mode_pr(left_thumb);
     uint8_t left_mi_map_idx = thumb_mode_mi(left_thumb);
@@ -594,11 +601,10 @@ const macro_t *process_chord(uint64_t chord)
     uint8_t right_pr_map_idx = thumb_mode_pr(right_thumb);
     uint8_t right_mi_map_idx = thumb_mode_mi(right_thumb);
 
-    uint16_t left_pr     = pgm_read_word(&(left_pr_map[left_pr_map_idx][left_pr_idx]));
-    uint16_t left_mi     = pgm_read_word(&(left_mi_map[left_mi_map_idx][left_mi_idx]));
-    uint16_t right_mi    = pgm_read_word(&(right_mi_map[right_mi_map_idx][right_mi_idx]));
-    uint16_t right_pr    = pgm_read_word(&(right_pr_map[right_pr_map_idx][right_pr_idx]));
-
+    uint16_t left_pr  = pgm_read_word(&(pr_map[left_pr_map_idx][left_pr_idx]));
+    uint16_t left_mi  = pgm_read_word(&(mi_map[left_mi_map_idx][left_mi_idx]));
+    uint16_t right_pr = pgm_read_word(&(pr_map[right_pr_map_idx][right_pr_idx]));
+    uint16_t right_mi = pgm_read_word(&(mi_map[right_mi_map_idx][right_mi_idx]));
 
     process_pair(left_pr);
     process_pair(left_mi);
