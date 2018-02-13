@@ -256,6 +256,9 @@
 #define CHORD_THUMB_SYMB_MODS 1030
 #define CHORD_THUMB_NAV       1031
 
+#define CHORD_LANG_LAT        1041
+#define CHORD_LANG_CYR        1042
+
 #define CHORD_MODS_GUI               1051
 #define CHORD_MODS_CTL               1052
 #define CHORD_MODS_CTL_GUI           1053
@@ -298,9 +301,9 @@
  ---    -x-    -x-    ---    x--    x--    ---    xx-    ---    xx-
  ---    ---    -x-    -x-    ---    x--    x--    ---    xx-    xx-
   1      2      3      4      5      6      7      8      9      10
- e E    e E    p P    t T    a A    g G    o O    y Y    b B
+ e E    e E    p P    t T    a A    g G    o O    y Y    b B    LAT
  1      1 GUI  \      2 CTL  3      `      4      ~      @
- е Е    е Е    п П    т Т    а А    г Г    о О    й Й    б Б
+ е Е    е Е    п П    т Т    а А    г Г    о О    й Й    б Б    LAT
 
   10     10     20     15     15     25     15     20     25     45
    x      x      x      x      x      x      x      x      x      x
@@ -325,9 +328,9 @@
  --x    -xx    -xx    --x    x-x    x-x    --x    xxx    --x    xxx
  ---    ---    -x-    -x-    ---    x--    x--    ---    xx-    xx-
   31     32     33     34     35     36     37     38     39     40
- bks    z Z   th Th   n N    c C   of Of   u U   an An  at At
+ bks    z Z   th Th   n N    c C   of Of   u U   an An  at At   CYR
  7 SFT  (      )      8      +             -      [      ]
- bks    з З    ш Ш    н Н    ц Ц   ов Ов   у У    щ Щ    ъ Ъ
+ bks    з З    ш Ш    н Н    ц Ц   ов Ов   у У    щ Щ    ъ Ъ    CYR
   
   20     20     30     20     25     35     25     30     30     50
    -      -      -      -      -      -      -      -      -      -
@@ -451,9 +454,9 @@ static const uint8_t left_pr_chord_to_id[128] PROGMEM =
  ---    -x-    -x-    ---    --x    --x    ---    -xx    ---    -xx
  ---    ---    -x-    -x-    ---    --x    --x    ---    -xx    -xx
   1      2      3      4      5      6      7      8      9      10
- e E    e E    p P    t T    a A    g G    o O    y Y    b B
+ e E    e E    p P    t T    a A    g G    o O    y Y    b B    LAT
  1      1 GUI  \      2 CTL  3      `      4      ~      @
- е Е    е Е    п П    т Т    а А    г Г    о О    й Й    б Б
+ е Е    е Е    п П    т Т    а А    г Г    о О    й Й    б Б    LAT
 
   10     10     20     15     15     25     15     20     25     45
  x      x      x      x      x      x      x      x      x      x
@@ -478,9 +481,9 @@ static const uint8_t left_pr_chord_to_id[128] PROGMEM =
  x--    xx-    xx-    x--    x-x    x-x    x--    xxx    x--    xxx
  ---    ---    -x-    -x-    ---    --x    --x    ---    -xx    -xx
   31     32     33     34     35     36     37     38     39     40
- bks    z Z   th Th   n N    c C   of Of   u U   an An  at At
+ bks    z Z   th Th   n N    c C   of Of   u U   an An  at At   CYR
  7 SFT  (      )      8      +             -      [      ]
- bks    з З    ш Ш    н Н    ц Ц   ов Ов   у У    щ Щ    ъ Ъ
+ bks    з З    ш Ш    н Н    ц Ц   ов Ов   у У    щ Щ    ъ Ъ    CYR
 
   20     20     30     20     25     35     25     30     30     50
  -      -      -      -      -      -      -      -      -      -
@@ -599,6 +602,7 @@ static const uint16_t pr_chords_lat[CHORD_MAX] PROGMEM =
     [7] =  CHORD_O,
     [8] =  CHORD_Y,
     [9] =  CHORD_B,
+    [10] = CHORD_LANG_LAT,
     [11] = CHORD_BSPACE,
     [12] = CHORD_I,
     [13] = CHORD_V,
@@ -626,6 +630,7 @@ static const uint16_t pr_chords_lat[CHORD_MAX] PROGMEM =
     [37] = CHORD_U,
     [38] = CHORD_AN,
     [39] = CHORD_AT,
+    [40] = CHORD_LANG_CYR,
     [41] = CHORD_EN,
     [42] = CHORD_ER,
     [43] = CHORD_QUOTE,
@@ -657,6 +662,7 @@ static const uint16_t pr_chords_lat_caps[CHORD_MAX] PROGMEM =
     [7] =  CHORD_C_O,
     [8] =  CHORD_C_Y,
     [9] =  CHORD_C_B,
+    [10] = CHORD_LANG_LAT,
     [11] = CHORD_BSPACE,
     [12] = CHORD_C_I,
     [13] = CHORD_C_V,
@@ -684,6 +690,7 @@ static const uint16_t pr_chords_lat_caps[CHORD_MAX] PROGMEM =
     [37] = CHORD_C_U,
     [38] = CHORD_C_AN,
     [39] = CHORD_C_AT,
+    [40] = CHORD_LANG_CYR,
     [41] = CHORD_C_EN,
     [42] = CHORD_C_ER,
     [43] = CHORD_QUOTE,
@@ -715,6 +722,7 @@ static const uint16_t pr_chords_cyr[CHORD_MAX] PROGMEM =
     [7] =  CHORD_CYR_O,
     [8] =  CHORD_CYR_ISHORT,
     [9] =  CHORD_CYR_B,
+    [10] = CHORD_LANG_LAT,
     [11] = CHORD_BSPACE,
     [12] = CHORD_CYR_I,
     [13] = CHORD_CYR_V,
@@ -742,6 +750,7 @@ static const uint16_t pr_chords_cyr[CHORD_MAX] PROGMEM =
     [37] = CHORD_CYR_U,
     [38] = CHORD_CYR_SCHA,
     [39] = CHORD_CYR_HARD,
+    [40] = CHORD_LANG_CYR,
     [41] = CHORD_CYR_YI,
     [42] = CHORD_CYR_SOFT,
     [43] = CHORD_QUOTE,
@@ -773,6 +782,7 @@ static const uint16_t pr_chords_cyr_caps[CHORD_MAX] PROGMEM =
     [7] =  CHORD_C_CYR_O,
     [8] =  CHORD_C_CYR_ISHORT,
     [9] =  CHORD_C_CYR_B,
+    [10] = CHORD_LANG_LAT,
     [11] = CHORD_BSPACE,
     [12] = CHORD_C_CYR_I,
     [13] = CHORD_C_CYR_V,
@@ -800,6 +810,7 @@ static const uint16_t pr_chords_cyr_caps[CHORD_MAX] PROGMEM =
     [37] = CHORD_C_CYR_U,
     [38] = CHORD_C_CYR_SCHA,
     [39] = CHORD_C_CYR_HARD,
+    [40] = CHORD_LANG_CYR,
     [41] = CHORD_C_CYR_YI,
     [42] = CHORD_C_CYR_SOFT,
     [43] = CHORD_QUOTE,
@@ -831,6 +842,7 @@ static const uint16_t pr_chords_symb[CHORD_MAX] PROGMEM =
     [7] = CHORD_4,
     [8] = CHORD_TILDA,
     [9] = CHORD_AAT,
+    [10] = CHORD_LANG_LAT,
     [11] = CHORD_5,
     [12] = CHORD_6,
     [13] = CHORD_HASH,
@@ -853,6 +865,7 @@ static const uint16_t pr_chords_symb[CHORD_MAX] PROGMEM =
     [37] = CHORD_MINUS,
     [38] = CHORD_LBRACE,
     [39] = CHORD_RBRACE,
+    [40] = CHORD_LANG_CYR,
     [41] = CHORD_LCURL,
     [42] = CHORD_RCURL,
     [43] = CHORD_QUOTE,
@@ -874,6 +887,7 @@ static const uint16_t pr_chords_mods[CHORD_MAX] PROGMEM =
     [2] =  CHORD_MODS_GUI,
     [4] =  CHORD_MODS_CTL,
     [3] =  CHORD_MODS_CTL_GUI,
+    [10] = CHORD_LANG_LAT,
     [31] = CHORD_MODS_SFT,
     [32] = CHORD_MODS_SFT_GUI,
     [34] = CHORD_MODS_SFT_CTL,
@@ -882,6 +896,7 @@ static const uint16_t pr_chords_mods[CHORD_MAX] PROGMEM =
     [52] = CHORD_MODS_ALT_GUI,
     [54] = CHORD_MODS_ALT_CTL,
     [53] = CHORD_MODS_ALT_CTL_GUI,
+    [40] = CHORD_LANG_CYR,
     [41] = CHORD_MODS_ALT_SFT,
     [42] = CHORD_MODS_ALT_SFT_GUI,
     [44] = CHORD_MODS_ALT_SFT_CTL,
@@ -1478,14 +1493,14 @@ static const uint16_t mi_chords_symb[] PROGMEM =
 static const uint16_t mi_chords_nav[] PROGMEM =
 {
     [1] =  CHORD_NONE,
-    [2] = CHORD_UP,
-    [3] = CHORD_F8,
-    [4] = CHORD_DOWN,
-    [5] = CHORD_RIGHT,
-    [6] = CHORD_F9,
-    [7] = CHORD_LEFT,
-    [8] = CHORD_F10,
-    [9] = CHORD_F11,
+    [2] =  CHORD_UP,
+    [3] =  CHORD_F8,
+    [4] =  CHORD_DOWN,
+    [5] =  CHORD_RIGHT,
+    [6] =  CHORD_F9,
+    [7] =  CHORD_LEFT,
+    [8] =  CHORD_F10,
+    [9] =  CHORD_F11,
     [11] = CHORD_PGUP,
     [12] = CHORD_F1,
     [14] = CHORD_F2,

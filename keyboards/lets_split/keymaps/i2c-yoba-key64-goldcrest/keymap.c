@@ -240,6 +240,7 @@ uint64_t chord = 0ULL;
 uint64_t chord_pressed = 0ULL;
 
 uint8_t chord_mods = 0;
+uint8_t lang = MAP_LAT;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -530,6 +531,12 @@ void process_special(uint16_t idx)
         register_code(KC_LALT);
         chord_mods |= MOD_LALT;
         break;
+    case CHORD_LANG_LAT:
+        lang = MAP_LAT;
+        break;
+    case CHORD_LANG_CYR:
+        lang = MAP_CYR;
+        break;
     default:
         break;
     }
@@ -560,27 +567,27 @@ uint8_t thumb_mode_pr(uint16_t thumb)
 {
     if ((thumb == CHORD_THUMB_CAP1) ||
         (thumb == CHORD_THUMB_CAP12))
-        return MAP_LAT_CAPS;
+        return lang+1;
     if ((thumb == CHORD_THUMB_MODS) ||
         (thumb == CHORD_THUMB_SYMB_MODS) ||
         (thumb == CHORD_THUMB_NAV))
         return MAP_MODS;
     if (thumb == CHORD_THUMB_SYMB)
         return MAP_SYMB;
-    return MAP_LAT;
+    return lang;
 }
 
 uint8_t thumb_mode_mi(uint16_t thumb)
 {
     if ((thumb == CHORD_THUMB_CAP2) ||
         (thumb == CHORD_THUMB_CAP12))
-        return MAP_LAT_CAPS;
+        return lang+1;
     if ((thumb == CHORD_THUMB_SYMB) ||
         (thumb == CHORD_THUMB_SYMB_MODS))
         return MAP_SYMB;
     if (thumb == CHORD_THUMB_NAV)
         return MAP_NAV;
-    return MAP_LAT;
+    return lang;
 }
 
 const macro_t *process_chord(uint64_t chord)
@@ -594,24 +601,25 @@ const macro_t *process_chord(uint64_t chord)
 
     uint16_t left_thumb  = pgm_read_word(&(thumb_chords[left_thumb_idx]));
     uint16_t right_thumb = pgm_read_word(&(thumb_chords[right_thumb_idx]));
-    
+
     uint8_t left_pr_map_idx = thumb_mode_pr(left_thumb);
-    uint8_t left_mi_map_idx = thumb_mode_mi(left_thumb);
-    
-    uint8_t right_pr_map_idx = thumb_mode_pr(right_thumb);
-    uint8_t right_mi_map_idx = thumb_mode_mi(right_thumb);
-
     uint16_t left_pr  = pgm_read_word(&(pr_map[left_pr_map_idx][left_pr_idx]));
-    uint16_t left_mi  = pgm_read_word(&(mi_map[left_mi_map_idx][left_mi_idx]));
-    uint16_t right_pr = pgm_read_word(&(pr_map[right_pr_map_idx][right_pr_idx]));
-    uint16_t right_mi = pgm_read_word(&(mi_map[right_mi_map_idx][right_mi_idx]));
-
     process_pair(left_pr);
+
+    uint8_t left_mi_map_idx = thumb_mode_mi(left_thumb);
+    uint16_t left_mi  = pgm_read_word(&(mi_map[left_mi_map_idx][left_mi_idx]));
     process_pair(left_mi);
     undo_mods();
+
+    uint8_t right_pr_map_idx = thumb_mode_pr(right_thumb);
+    uint16_t right_pr = pgm_read_word(&(pr_map[right_pr_map_idx][right_pr_idx]));
     process_pair(right_pr);
+
+    uint8_t right_mi_map_idx = thumb_mode_mi(right_thumb);
+    uint16_t right_mi = pgm_read_word(&(mi_map[right_mi_map_idx][right_mi_idx]));
     process_pair(right_mi);
     undo_mods();
+
     return MACRO_NONE;
 }
 
